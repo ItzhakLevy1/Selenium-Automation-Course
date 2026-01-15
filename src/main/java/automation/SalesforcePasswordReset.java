@@ -41,12 +41,38 @@ public class SalesforcePasswordReset {
 /*
 Multiple ways of targeting the same element : 
 
-	Preferred 3 ways:
-	driver.findElement(By.id("username"));  // By id
-	driver.findElement(By.cssSelector(".username")); // By a single class and a CSS Selector
-	driver.findElement(By.cssSelector("[name='username']")); // By attribute name
+	Preferred 5 ways:
 
-	Additional ways:
+	1. driver.findElement(By.cssSelector("[data-testid='123asd']")); // By a QA designated attribute name
+	2. driver.findElement(By.id("username"));  // By id
+	3. driver.findElement(By.cssSelector(".username")); // By a single class and a CSS Selector
+	4. driver.findElement(By.cssSelector("[name='username']")); // By attribute name
+
+
+	5. By a partial hierarchy, target the desired element's father or grandfather and use the > sign to look inside of it.
+	   ( Use carefully since the hierarchy may change in the future ),
+
+	   the space surrounding the > sign means to look until you find the first p tag - even if it is not the first element inside the father element,
+	   No space around it would indicate the exact elements hierarchy and would require every element in between to be mentioned:
+	   driver.findElement(By.cssSelector("#forgotPassForm > p"));
+
+	   In case there are several similar elements inside the father element, we can select the desired one by its number in the hierarchy ( without any spaces ):
+	   driver.findElement(By.cssSelector("#forgotPassForm>p:nth-child(4)"));
+
+	   If there is no other choice, go up in the hierarchy and select as many grandfathers as needed:
+	   driver.findElement(By.cssSelector("#forgotPassForm_3>#forgotPassForm_2:nth-child(2)>#forgotPassForm_1>p:nth-child(4)"));
+
+	   ( Inspect > copy selector - should give the desired element's hierarchy)
+
+	* Using only a part of an attribute's value ( in case any of its parts are dynamic and may change ) :
+		[id='A12-B34-C56']	this uses all the value
+		[id^='A12'] this uses the "starts with" part
+		[id*='B34'] this uses the "contains anywhere" part
+		[id$='C56'] this uses the "ends with" part
+
+
+Additional ways:
+	driver.findElement(By.tagName("input")); // By tag name
 	driver.findElement(By.name("username")); // By name
 	driver.findElement(By.className("username")); // By a single class
 	driver.findElement(By.cssSelector("#username")); // By css selector and an id
@@ -55,9 +81,7 @@ Multiple ways of targeting the same element :
 	driver.findElement(By.xpath("//input[@id='username']")); // By relative xPath
 	driver.findElement(By.xpath("//input[contains(@class, 'username')]")); // By xPath and a class
 	driver.findElement(By.xpath("//input[@type='email']")); // By xPath and any other attribute
-	driver.findElement(By.tagName("input")); // By tag name
 	driver.findElement(By.cssSelector("input[name='username']")); // By a combination of a tag and an attribute
 	driver.findElement(By.cssSelector("[aria-describedby='error']")); // By another characteristic - if exist within the element
-	driver.findElement(By.cssSelector("#forgotPassForm > p")); // By a partial hierarchy ( Not recommended since the hierarchy may change in the future )
 
 */
