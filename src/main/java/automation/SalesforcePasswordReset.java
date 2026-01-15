@@ -55,4 +55,6 @@ Multiple ways of targeting the same element :
 	driver.findElement(By.cssSelector("[name='username']")); // By attribute name
 	driver.findElement(By.cssSelector("input[name='username']")); // By a combination of a tag and an attribute
 	driver.findElement(By.cssSelector("[aria-describedby='error']")); // By another characteristic - if exist within the element
+	driver.findElement(By.cssSelector("#forgotPassForm > p")); // By a partial hierarchy ( Not recommended since the hierarchy may change in the future )
+
 */
