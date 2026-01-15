@@ -41,18 +41,21 @@ public class SalesforcePasswordReset {
 /*
 Multiple ways of targeting the same element : 
 
+	Preferred 3 ways:
 	driver.findElement(By.id("username"));  // By id
+	driver.findElement(By.cssSelector(".username")); // By a single class and a CSS Selector
+	driver.findElement(By.cssSelector("[name='username']")); // By attribute name
+
+	Additional ways:
 	driver.findElement(By.name("username")); // By name
 	driver.findElement(By.className("username")); // By a single class
-	driver.findElement(By.cssSelector(".username")); // By a single class and a css
 	driver.findElement(By.cssSelector("#username")); // By css selector and an id
-	driver.findElement(By.cssSelector(".input.wide.username")); // By multiple classes 
+	driver.findElement(By.cssSelector(".input.wide.username")); // By multiple classes
 	driver.findElement(By.xpath("/html/body/div[1]/form/input[2]")); // By absolute xPath
 	driver.findElement(By.xpath("//input[@id='username']")); // By relative xPath
 	driver.findElement(By.xpath("//input[contains(@class, 'username')]")); // By xPath and a class
 	driver.findElement(By.xpath("//input[@type='email']")); // By xPath and any other attribute
 	driver.findElement(By.tagName("input")); // By tag name
-	driver.findElement(By.cssSelector("[name='username']")); // By attribute name
 	driver.findElement(By.cssSelector("input[name='username']")); // By a combination of a tag and an attribute
 	driver.findElement(By.cssSelector("[aria-describedby='error']")); // By another characteristic - if exist within the element
 	driver.findElement(By.cssSelector("#forgotPassForm > p")); // By a partial hierarchy ( Not recommended since the hierarchy may change in the future )
