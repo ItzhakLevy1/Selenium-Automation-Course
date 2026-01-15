@@ -20,7 +20,7 @@ public class SalesforcePasswordReset {
 		System.out.println("The page title is : " + pageTitle);
 		Thread.sleep(2000);
 		
-		if(pageTitle.contains("Reset Your Password")) {
+		if(pageTitle.toLowerCase().contains("Reset Your Password")) {	// Get everything in lower case and only then compare to avoid any case sensitivity issues
 			driver.findElement(By.cssSelector("#un")).sendKeys("Itzhak");
 			Thread.sleep(2000);
 			
