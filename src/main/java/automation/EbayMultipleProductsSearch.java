@@ -12,36 +12,35 @@ public class EbayMultipleProductsSearch {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://www.ebay.com/sch/ebayadvsearch");
-        Thread.sleep(2000);
+        Thread.sleep(4000);
 
-        /* Search for a product */
-        driver.findElement(By.cssSelector("#_nkw")).sendKeys("tent");
-        Thread.sleep(2000);
+        // The search button
+        WebElement searchBtn = driver.findElement(By.cssSelector("div.adv-form__actions > button"));
 
-        driver.findElement(By.cssSelector("[data-testid='s0-1-20-6[3]-[2]-LH_BIN']")).click();
-        Thread.sleep(2000);
+        // Check if it's displayed
+        boolean searchBtnDisplayed = searchBtn.isDisplayed();
 
-        driver.findElement(By.cssSelector("div.adv-form__actions > button")).click();
+        // Check if it's enabled
+        boolean searchBtnEnabled = searchBtn.isEnabled();
+
+        // Get its text
+        String textOnSearchBtn = searchBtn.getText();
+
+        // Get its class value
+        String searchBtnClassValue = searchBtn.getAttribute("class");
+
+        // Get its tag name
+        String searchBtnTagName = searchBtn.getTagName();
+
+
+
+        System.out.println("Is the search button displayed ? : " + searchBtnDisplayed);
+        System.out.println("Is the search button enabled ? : " + searchBtnEnabled);
+        System.out.println("The text on the search button is: " + textOnSearchBtn);
+        System.out.println("The class of the search button is: " + searchBtnClassValue);
+        System.out.println("The tag name of the search button is: " + searchBtnTagName);
         Thread.sleep(5000);
 
-        // In the next page, get a list of all results (there are about 50 results) and store it in a variable named list
-        List<WebElement> list = driver.findElements(By.cssSelector(".su-card-container__header > .s-card__link"));
-
-        System.out.println("Number of elements : " + list.size());
-
-        /* Loop through all elements and print each one ( using a foreach loop or a for loop ) */
-
-        for (WebElement el : list) {
-            System.out.println(el.getText());
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getText());
-        }
-
-        // Click the second element from the list
-        list.get(2).click();
-        Thread.sleep(5000);
 
         driver.quit();
     }
