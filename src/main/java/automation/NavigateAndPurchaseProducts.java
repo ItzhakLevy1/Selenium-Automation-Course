@@ -35,6 +35,13 @@ public class NavigateAndPurchaseProducts {
         driver.findElement(By.cssSelector("#finish")).click();
         Thread.sleep(3000);
 
+        String successMessage1 = driver.findElement(By.cssSelector(".complete-header")).getText();
+        String successMessage2 = driver.findElement(By.cssSelector(".complete-text")).getText();
+
+        System.out.println("Here is the first part of the success message: " + successMessage1);
+        System.out.println("Here is the second part of the success message: " + successMessage2);
+        Thread.sleep(3000);
+
 
 
         driver.quit();
