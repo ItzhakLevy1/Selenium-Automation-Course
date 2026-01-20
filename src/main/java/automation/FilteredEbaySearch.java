@@ -43,6 +43,10 @@ public class FilteredEbaySearch {
         Thread.sleep(1000);
 
         // Insert value into the "Min price" input field
+        driver.findElement(By.cssSelector("[name='_udhi']")).sendKeys("100");
+        Thread.sleep(2000);
+        driver.findElement(By.cssSelector("[name='_udhi']")).clear();
+        Thread.sleep(2000);
         driver.findElement(By.cssSelector("[name='_udhi']")).sendKeys("60");
         Thread.sleep(2000);
 
