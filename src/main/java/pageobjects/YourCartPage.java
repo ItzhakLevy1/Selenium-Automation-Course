@@ -18,6 +18,6 @@ public class YourCartPage {
 
     // A method for checking out
     public void checkout() {
-        driver.findElement(By.cssSelector("")).click();
+        driver.findElement(By.cssSelector("#checkout")).click();
     }
 }

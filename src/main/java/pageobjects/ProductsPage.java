@@ -29,7 +29,7 @@ public class ProductsPage {
      */
     public void chooseProduct(String name) {
         // Find all product elements using a CSS Selector
-        List<WebElement> list = driver.findElements(By.cssSelector(""));
+        List<WebElement> list = driver.findElements(By.cssSelector(".inventory_item_name"));
 
         // Loop through the list of found elements
         for (WebElement element : list) {
@@ -49,6 +49,6 @@ public class ProductsPage {
 
     // A method that will open the cart ( probably be used after a product has been added to the cart using addToCart() )
     public void openCart() {
-        driver.findElement(By.cssSelector("")).click();
+        driver.findElement(By.cssSelector("#shopping_cart_container a")).click();
     }
 }

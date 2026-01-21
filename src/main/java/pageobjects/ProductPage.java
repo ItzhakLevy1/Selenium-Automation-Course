@@ -18,12 +18,12 @@ public class ProductPage {
 
     // A method that adds a product to the cart
     public void addToCart() {
-        driver.findElement(By.cssSelector("")).click();
+        driver.findElement(By.cssSelector("#add-to-cart")).click();
     }
 
     // A method that navigates back to the previous page ( back to the products page )
     public void back() {
-        driver.findElement(By.cssSelector("")).click();
+        driver.findElement(By.cssSelector("#back-to-products")).click();
     }
 
 }

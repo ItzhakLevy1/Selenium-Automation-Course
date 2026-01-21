@@ -28,12 +28,14 @@ public class LoginPage {
      */
     public void login(String user, String password) {
         // Locate the username field and type the provided username
-        driver.findElement(By.cssSelector("")).sendKeys(user);
+        driver.findElement(By.cssSelector("#user-name")).clear();
+        driver.findElement(By.cssSelector("#user-name")).sendKeys(user);
 
         // Locate the password field and type the provided password
-        driver.findElement(By.cssSelector("")).sendKeys(password);
+        driver.findElement(By.cssSelector("#password")).clear();
+        driver.findElement(By.cssSelector("#password")).sendKeys(password);
 
         // Locate and click the login/submit button to finalize the process
-        driver.findElement(By.cssSelector("")).click();
+        driver.findElement(By.cssSelector("#login-button")).click();
     }
 }
