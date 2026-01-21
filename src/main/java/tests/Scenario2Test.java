@@ -15,10 +15,12 @@ public class Scenario2Test {
         driver.get("https://www.saucedemo.com/");
         Thread.sleep(3000);
 
+
         // LOG IN
         LoginPage lp = new LoginPage(driver);
         lp.login("standard_user", "secret_sauce");
         Thread.sleep(3000);
+
 
         // SELECT A PRODUCT
         ProductsPage psp1 = new ProductsPage(driver);
@@ -33,10 +35,12 @@ public class Scenario2Test {
         pp1.back();
         Thread.sleep(3000);
 
+
         // SELECT AN ADDITIONAL PRODUCT
         ProductsPage psp2 = new ProductsPage(driver);
         psp2.chooseProduct("Sauce Labs Fleece Jacket");
         Thread.sleep(3000);
+
 
         // ADD THE SECOND PRODUCT TO CART AND NAVIGATE BACK TO THE MAIN PRODUCTS PAGE
         ProductPage pp2 = new ProductPage(driver);
@@ -45,10 +49,29 @@ public class Scenario2Test {
         pp2.back();
         Thread.sleep(3000);
 
+
         // NAVIGATE TO CART PAGE
         YourCartPage ycp = new YourCartPage(driver);
         ycp.checkout();
         Thread.sleep(3000);
+
+
+        // CLICKING THE CHECKOUT BUTTON ON THE CART PAGE
+        ycp.midCheckout();
+        Thread.sleep(2000);
+
+
+        // ON THE NEXT PAGE FILL ALL 3 INPUT FIELDS AND CLICK THE "CONTINUE" BUTTON
+        ycp.completeCheckout();
+        Thread.sleep(2000);
+
+
+        // ON THE FINISH PAGE CLICK THE "FINISH" BUTTON
+        ycp.finishCheckout();
+        Thread.sleep(2000);
+
+        System.out.println("Test PASSED !");
+        Thread.sleep(2000);
 
 
         driver.quit();
