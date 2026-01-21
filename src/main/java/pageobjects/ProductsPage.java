@@ -46,4 +46,9 @@ public class ProductsPage {
             }
         }
     }
+
+    // A method that will open the cart ( probably be used after a product has been added to the cart using addToCart() )
+    public void openCart() {
+        driver.findElement(By.cssSelector("")).click();
+    }
 }
