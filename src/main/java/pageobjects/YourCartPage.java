@@ -12,6 +12,6 @@ public class YourCartPage extends BasePage{
 
     // A method for checking out
     public void checkout() {
-        click(driver.findElement(By.cssSelector("#checkout")));
+        click(driver.findElement(By.cssSelector(".shopping_cart_link")));
     }
 }
