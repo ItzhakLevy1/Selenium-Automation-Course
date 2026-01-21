@@ -7,18 +7,11 @@ import org.openqa.selenium.WebDriver;
  * This class follows the Page Object Model (POM) design pattern.
  * It represents the Login Page of the application and contains its elements and actions.
  */
-public class LoginPage {
+public class LoginPage extends BasePage {
 
-    // The driver instance used to interact with the browser
-    WebDriver driver;
-
-    /**
-     * Constructor: Used to initialize the page object with a WebDriver instance
-     * passed from the test class.
-     * @param driver The WebDriver instance.
-     */
+    // Passes the WebDriver instance to the parent BasePage constructor
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     /**
@@ -27,15 +20,12 @@ public class LoginPage {
      * @param password The password to enter.
      */
     public void login(String user, String password) {
-        // Locate the username field and type the provided username
-        driver.findElement(By.cssSelector("#user-name")).clear();
-        driver.findElement(By.cssSelector("#user-name")).sendKeys(user);
 
-        // Locate the password field and type the provided password
-        driver.findElement(By.cssSelector("#password")).clear();
-        driver.findElement(By.cssSelector("#password")).sendKeys(password);
+        // Locate the username + password fields, and use the "fillText" method which clears the value and inserts new value instead
+        fillText(driver.findElement(By.cssSelector("#user-name")), user);
+        fillText(driver.findElement(By.cssSelector("#password")), password);
 
         // Locate and click the login/submit button to finalize the process
-        driver.findElement(By.cssSelector("#login-button")).click();
+        click(driver.findElement(By.cssSelector("#login-button")));
     }
 }

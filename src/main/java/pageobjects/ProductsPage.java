@@ -10,17 +10,11 @@ import java.util.List;
  * This class represents the Products page.
  * It contains methods to interact with the list of items available in the store.
  */
-public class ProductsPage {
+public class ProductsPage extends BasePage{
 
-    // Global WebDriver instance to be used within this class
-    WebDriver driver;
-
-    /**
-     * Constructor: Initializes the page object with a driver instance from the test.
-     * @param driver The WebDriver instance passed from the Main/Test class.
-     */
+    // Passes the WebDriver instance to the parent BasePage constructor
     public ProductsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     /**
@@ -39,7 +33,7 @@ public class ProductsPage {
             if (element.getText().equalsIgnoreCase(name)) {
 
                 // If a match is found, click the element
-                element.click();
+                click(element);
 
                 // Exit the loop immediately after the click to save time
                 break;
@@ -49,6 +43,6 @@ public class ProductsPage {
 
     // A method that will open the cart ( probably be used after a product has been added to the cart using addToCart() )
     public void openCart() {
-        driver.findElement(By.cssSelector("#shopping_cart_container a")).click();
+        click(driver.findElement(By.cssSelector("#shopping_cart_container a")));
     }
 }
