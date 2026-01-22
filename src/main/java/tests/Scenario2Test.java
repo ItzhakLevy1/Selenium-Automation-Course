@@ -2,6 +2,7 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pageobjects.LoginPage;
 import pageobjects.ProductPage;
 import pageobjects.ProductsPage;
@@ -9,7 +10,15 @@ import pageobjects.YourCartPage;
 
 public class Scenario2Test {
     public static void main(String[] args) throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
+
+        // 1. Creating a Settings Object for Chrome
+        ChromeOptions options = new ChromeOptions();
+
+        // 2. Add a setting that disables checking for leaked passwords
+        options.addArguments("--disable-features=PasswordLeakDetection");
+
+        // 3. Running the driver with the new settings
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
         driver.get("https://www.saucedemo.com/");
