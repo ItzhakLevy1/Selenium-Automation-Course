@@ -34,3 +34,15 @@ public class BaseTest {
         return driver;
     }
 }
+
+
+/*
+
+Provided benefits :
+Incognito Mode: Prevents the site from saving "cookies" between runs, which ensures that the test always starts "clean".
+
+Maximize Window: Saves you from having to write driver.manage().window().maximize() every time.
+
+Automated Info-bar: It hides the line "Chrome is being controlled by automated software", which sometimes moves elements on the site.
+
+ */
