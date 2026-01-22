@@ -1,7 +1,8 @@
-package pageobjects;
+package pageobjects.saucedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pageobjects.common.BasePage;
 
 /**
  * This class follows the Page Object Model (POM) design pattern.

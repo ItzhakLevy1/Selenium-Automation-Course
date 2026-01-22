@@ -1,12 +1,12 @@
-package tests;
+package tests.saucedemo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import pageobjects.LoginPage;
-import pageobjects.ProductPage;
-import pageobjects.ProductsPage;
-import pageobjects.YourCartPage;
+import pageobjects.saucedemo.LoginPage;
+import pageobjects.saucedemo.ProductPage;
+import pageobjects.saucedemo.ProductsPage;
+import pageobjects.saucedemo.YourCartPage;
 
 public class Scenario2Test {
     public static void main(String[] args) throws InterruptedException {

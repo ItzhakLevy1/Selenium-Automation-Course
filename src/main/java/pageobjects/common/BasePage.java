@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class BasePage {
 
     // The driver instance used to interact with the browser
-    WebDriver driver;
+    public WebDriver driver;
 
     /**
      * Constructor: Used to initialize the page object with a WebDriver instance

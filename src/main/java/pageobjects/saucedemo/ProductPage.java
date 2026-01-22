@@ -1,7 +1,8 @@
-package pageobjects;
+package pageobjects.saucedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pageobjects.common.BasePage;
 
 public class ProductPage extends BasePage {
 

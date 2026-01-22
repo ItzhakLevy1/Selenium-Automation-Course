@@ -1,8 +1,9 @@
-package pageobjects;
+package pageobjects.saucedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pageobjects.common.BasePage;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * This class represents the Products page.
  * It contains methods to interact with the list of items available in the store.
  */
-public class ProductsPage extends BasePage{
+public class ProductsPage extends BasePage {
 
     // Passes the WebDriver instance to the parent BasePage constructor
     public ProductsPage(WebDriver driver) {

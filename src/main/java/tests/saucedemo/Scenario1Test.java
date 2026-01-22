@@ -1,8 +1,8 @@
-package tests;
+package tests.saucedemo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.LoginPage;
+import pageobjects.saucedemo.LoginPage;
 
 public class Scenario1Test {
     public static void main(String[] args) throws InterruptedException {

@@ -1,11 +1,11 @@
-package tests;
+package tests.saucedemo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.LoginPage;
-import pageobjects.ProductPage;
-import pageobjects.ProductsPage;
-import pageobjects.YourCartPage;
+import pageobjects.saucedemo.LoginPage;
+import pageobjects.saucedemo.ProductPage;
+import pageobjects.saucedemo.ProductsPage;
+import pageobjects.saucedemo.YourCartPage;
 
 public class BuyProductTest {
     public static void main(String[] args) throws InterruptedException {

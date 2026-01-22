@@ -1,9 +1,10 @@
-package pageobjects;
+package pageobjects.saucedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pageobjects.common.BasePage;
 
-public class YourCartPage extends BasePage{
+public class YourCartPage extends BasePage {
 
     // Passes the WebDriver instance to the parent BasePage constructor
     public YourCartPage(WebDriver driver) {

@@ -1,7 +1,8 @@
-package tests;
+package tests.saucedemo;
 
 import org.openqa.selenium.WebDriver;
-import pageobjects.LoginPage;
+import pageobjects.saucedemo.LoginPage;
+import tests.common.BaseTest;
 
 public class LoginAndLogout {
     public static void main(String[] args) throws InterruptedException {
