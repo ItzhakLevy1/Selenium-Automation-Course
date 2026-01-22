@@ -2,6 +2,7 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import pageobjects.LoginPage;
+import pageobjects.LogoutPage;
 
 public class LoginAndLogout {
     public static void main(String[] args) throws InterruptedException {
@@ -18,8 +19,13 @@ public class LoginAndLogout {
         // Pass the intuitive 'driver' variable to the Page Object
         LoginPage lp = new LoginPage(driver);
         lp.login("standard_user", "secret_sauce");
+        Thread.sleep(4000);
 
-        Thread.sleep(6000);
+        /*================= LOGOUT =================*/
+        LogoutPage loutp = new LogoutPage(driver);
+        loutp.logout();
+        Thread.sleep(4000);
+
 
         /*================= CLEANUP =================*/
         driver.quit();
