@@ -1,5 +1,6 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -26,5 +27,16 @@ public class BasePage {
     // A method that clicks on an element
     public void click(WebElement element) {
         element.click();
+    }
+
+    // A Logout method
+    public void logout() throws InterruptedException {
+        // Open the side menu
+        click(driver.findElement(By.cssSelector(".bm-burger-button")));
+        // Wait for the animation to finish
+        Thread.sleep(2000);
+        // Click the logout link
+        click(driver.findElement(By.cssSelector("#logout_sidebar_link")));
+        System.out.println("Logout performed successfully via BasePage.");
     }
 }

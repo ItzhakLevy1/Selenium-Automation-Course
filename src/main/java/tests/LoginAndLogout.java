@@ -2,7 +2,6 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import pageobjects.LoginPage;
-import pageobjects.LogoutPage;
 
 public class LoginAndLogout {
     public static void main(String[] args) throws InterruptedException {
@@ -22,8 +21,7 @@ public class LoginAndLogout {
         Thread.sleep(4000);
 
         /*================= LOGOUT =================*/
-        LogoutPage loutp = new LogoutPage(driver);
-        loutp.logout();
+        lp.logout();
         Thread.sleep(4000);
 
 
