@@ -20,6 +20,7 @@ public class TasksPage extends BasePage {
     public void addTaskIfDoentExist(String newTaskName) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+        // Grab all existing tasks
         List<WebElement> listOfTasks = driver.findElements(By.cssSelector("div.title-block > span.title"));
         boolean taskAlreadyExists = false;
 
@@ -27,6 +28,7 @@ public class TasksPage extends BasePage {
         for (WebElement element : listOfTasks) {
             if (element.getText().equalsIgnoreCase(newTaskName)) {
                 taskAlreadyExists = true;
+                System.out.println("Task already exists! aborting...");
                 break; // Since the task already exists exit and stop the search loop
             }
         }
