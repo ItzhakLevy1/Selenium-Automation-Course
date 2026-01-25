@@ -1,10 +1,9 @@
 package tests.mytinytodo;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.mytinytodo.TasksPage;
 
-public class TasksTest {
+public class Scenario1TestAddTask {
     public static void main(String[] args) throws InterruptedException {
 
         /*================= SETUP =================*/
@@ -15,7 +14,7 @@ public class TasksTest {
 
         // Create a new task
         TasksPage tp = new TasksPage(driver);
-        tp.addSimpleTask();
+        tp.addSimpleTask("Be Great !");
         Thread.sleep(2000);
         System.out.println("Task Added, Test passed");
         Thread.sleep(2000);
