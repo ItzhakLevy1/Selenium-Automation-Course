@@ -14,13 +14,8 @@ public class Scenario1TestAddTask {
 
         // Create a new task
         TasksPage tp = new TasksPage(driver);
-        tp.addSimpleTask("Be Great !");
-        Thread.sleep(2000);
-        System.out.println("Task Added, Test passed");
-        Thread.sleep(2000);
-
-
+        tp.addTaskIfDoentExist("Be Great !");
+        Thread.sleep(3000);
         driver.quit();
-
     }
 }
