@@ -46,4 +46,30 @@ public class ProductsPage extends BasePage {
     public void openCart() {
         click(driver.findElement(By.cssSelector("#shopping_cart_container a")));
     }
+
+    public void addProductFromMainProductPage(String name) {
+        // 1. Collect all product containers into a listת Each element represents a full product card (image, title, price, button).
+        List<WebElement> list = driver.findElements(By.cssSelector(".inventory_item"));
+
+        // 2. Iterate through the list of product containers to find the specific item.
+        for (WebElement el : list) {
+
+            // 3. Search for the title element WITHIN the current product container.
+            WebElement elTitle = el.findElement(By.cssSelector(".inventory_item_name"));
+
+            // 4. Compare the found title with the provided 'name' parameter (case-insensitive).
+            if (elTitle.getText().equalsIgnoreCase(name)) {
+
+                // 5. Locate and click the 'Add to Cart' button specifically for this product.
+                WebElement elBuyBtn = el.findElement(By.cssSelector(".btn_inventory"));
+                elBuyBtn.click();
+
+                // 6. Exit the loop immediately after the target product is found and handled.
+                break;
+            } else {
+                // Log that the current item in the loop is not a match.
+                System.out.println("Current product '" + elTitle.getText() + "' does not match, checking next...");
+            }
+        }
+    }
 }
