@@ -3,8 +3,8 @@ package pageobjects.saucedemo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import pageobjects.common.BasePage;
-
 import java.util.List;
 
 /**
@@ -13,7 +13,18 @@ import java.util.List;
  */
 public class ProductsPage extends BasePage {
 
-    // Passes the WebDriver instance to the parent BasePage constructor
+    // PageFactory: List of all product containers (cards)
+    @FindBy(css = ".inventory_item")
+    private List<WebElement> productContainers;
+
+    // PageFactory: List of all product names (titles)
+    @FindBy(css = ".inventory_item_name")
+    private List<WebElement> productNames;
+
+    // PageFactory: The shopping cart button
+    @FindBy(css = "#shopping_cart_container a")
+    private WebElement cartButton;
+
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
@@ -23,52 +34,43 @@ public class ProductsPage extends BasePage {
      * @param name The exact name (case-insensitive) of the product to select.
      */
     public void chooseProduct(String name) {
-        // Find all product elements using a CSS Selector
-        List<WebElement> list = driver.findElements(By.cssSelector(".inventory_item_name"));
-
-        // Loop through the list of found elements
-        for (WebElement element : list) {
-
-            // Extract the text from the current element and compare it with the desired name
-            // 'equalsIgnoreCase' ensures it matches even if capitalization differs (e.g., "NIKE" vs "Nike")
+        // We use the productNames list initialized by PageFactory
+        for (WebElement element : productNames) {
             if (element.getText().equalsIgnoreCase(name)) {
-
-                // If a match is found, click the element
                 click(element);
-
-                // Exit the loop immediately after the click to save time
                 break;
             }
         }
     }
 
-    // A method that will open the cart ( probably be used after a product has been added to the cart using addToCart() )
+    /**
+     * Opens the shopping cart view.
+     */
     public void openCart() {
-        click(driver.findElement(By.cssSelector("#shopping_cart_container a")));
+        // Using the WebElement initialized by PageFactory
+        click(cartButton);
     }
 
+    /**
+     * Locates a product card by name and clicks its 'Add to Cart' button.
+     * @param name The name of the product to add.
+     */
     public void addProductFromMainProductPage(String name) {
-        // 1. Collect all product containers into a listת Each element represents a full product card (image, title, price, button).
-        List<WebElement> list = driver.findElements(By.cssSelector(".inventory_item"));
+        // Iterate through the containers found by PageFactory
+        for (WebElement el : productContainers) {
 
-        // 2. Iterate through the list of product containers to find the specific item.
-        for (WebElement el : list) {
-
-            // 3. Search for the title element WITHIN the current product container.
+            // Search for the title WITHIN the current container
             WebElement elTitle = el.findElement(By.cssSelector(".inventory_item_name"));
 
-            // 4. Compare the found title with the provided 'name' parameter (case-insensitive).
             if (elTitle.getText().equalsIgnoreCase(name)) {
-
-                // 5. Locate and click the 'Add to Cart' button specifically for this product.
+                // Find and click the 'Add to Cart' button WITHIN this specific container
                 WebElement elBuyBtn = el.findElement(By.cssSelector(".btn_inventory"));
                 elBuyBtn.click();
 
-                // 6. Exit the loop immediately after the target product is found and handled.
+                System.out.println("Product found and added: " + name);
                 break;
             } else {
-                // Log that the current item in the loop is not a match.
-                System.out.println("Current product '" + elTitle.getText() + "' does not match, checking next...");
+                System.out.println("Product '" + elTitle.getText() + "' is not a match.");
             }
         }
     }
