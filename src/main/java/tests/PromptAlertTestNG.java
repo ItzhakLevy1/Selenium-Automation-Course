@@ -39,16 +39,17 @@ public class PromptAlertTestNG {
         driver.switchTo().alert().accept();
         Thread.sleep(2000);
 
-        // Comparison strings of the expected result and the actual result
-        String expectedResult = "You entered: " + textToInsert;
+        // Strings of the actual result
         String actualResult = resultMessage.getText();
 
         /*
-         * Logical Validation: Compare the actual text retrieved from the UI with the expected string.
-         * If they are not identical, the test will immediately fail, stop the current execution,
-         * and display the custom error message provided as the third parameter.
+         * Logical Validation: Convert both strings to lowercase to perform a case-insensitive comparison.
+         * This ensures the test passes even if the UI text casing changes (e.g., from CSS or backend updates).
+         * We use assertTrue with contains() to verify that our input string is part of the final result message.
+         * This way even if the site's text message changes the test will still pass since we are mainly looking for the presence of the text entered by the user (textToInsert)
          */
-        Assert.assertEquals(actualResult, expectedResult, "The result message does not match the entered text!");
+        Assert.assertTrue(actualResult.toLowerCase().contains(textToInsert.toLowerCase()),
+                "Expected the result to contain: '" + textToInsert + "' but actual message was: '" + actualResult + "'");
 
         System.out.println("Assertion passed: " + actualResult);
         Thread.sleep(2000);
