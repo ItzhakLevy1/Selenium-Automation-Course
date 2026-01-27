@@ -21,15 +21,16 @@ public class ConfirmTestNG {
     @Test (priority = 1)
     public void tc01_triggerConfirmMessage() throws InterruptedException {
         driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
-        System.out.println("The confirmation button that triggers the message has been clicked!");
+        System.out.println("The confirmation button that triggers the alert message has been clicked!");
         Thread.sleep(3000);
     }
 
     // A method to accept and close the confirm modal
     @Test (priority = 2, dependsOnMethods = "tc01_triggerConfirmMessage")
     public void tc02_acceptConfirmMessage() throws InterruptedException {
-        driver.switchTo().alert().accept();
-        System.out.println("The confirmation button within the modal has been clicked!");
+//        driver.switchTo().alert().accept();
+        driver.switchTo().alert().dismiss();
+        System.out.println("The 'Cancel' button within the alert message has been clicked!");
         Thread.sleep(3000);
     }
 
