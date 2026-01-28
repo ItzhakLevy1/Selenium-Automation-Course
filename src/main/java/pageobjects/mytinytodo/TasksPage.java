@@ -117,4 +117,61 @@ public class TasksPage extends BasePage {
         }
     }
 
+    /*================= A METHOD TO DELETE A TASK BY HOVERING FIRST =================*/
+    public void deleteTaskFromTaskRow(String taskTabName, String taskName) throws InterruptedException {
+
+        // A setup to wait (for a maximum of 10 seconds) for an elements to show
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // A WebElement to place all of the tasks containers in ( as tabs )
+        List<WebElement> tabs =  driver.findElements(By.cssSelector("li.mtt-tab"));
+
+        // A boolean flag for a found task
+        boolean taskTabNameFound = false;
+        boolean taskNameFound = false;
+
+        // Loop through all tabs and in them look for a matching task - to - row name
+        for(WebElement tab: tabs){
+            if (tab.getText().equalsIgnoreCase(taskTabName)) {
+                taskTabNameFound =  true;
+                tab.click();
+                break;
+            }
+        }
+        if(!taskTabNameFound){
+            System.out.println("Task tab has not been found ! : " + taskTabName);
+        }
+
+        // (Wait until they appear and then) Grab all tasks within the found task row and loop through them
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".task-block")));
+        List<WebElement> tasksInGroup = driver.findElements(By.cssSelector(".task-block"));
+
+        // Loop all tasks and print them
+        for (WebElement task : tasksInGroup) {
+            WebElement titleElement = task.findElement(By.cssSelector(".task-title"));
+
+            if (titleElement.getText().equalsIgnoreCase(taskName)) {
+                // If a match is found mark it as a true flag and click it
+                taskNameFound =  true;
+
+                // Use the moveMouseToElement method from BasePage to hover to the desired element
+                moveMouseToElement(titleElement);
+
+                // In the found row element target the hidden menu element and click it
+                WebElement menuBtn = task.findElement(By.cssSelector(".taskactionbtn"));
+                click(menuBtn);
+
+                WebElement taskDeleteOption = driver.findElement(By.cssSelector("#cmenu_delete"));
+                wait.until(ExpectedConditions.elementToBeClickable(taskDeleteOption)).click();
+
+                // Once the alert is reviled, click it's OK / confirm button
+                WebElement alertOkBtn =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#btnModalOk")));
+                click(alertOkBtn);
+            }
+        }
+        if(!taskNameFound){
+            System.out.println("Task name has not been found ! : " + taskName);
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package pageobjects.common;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
@@ -40,5 +41,11 @@ public class BasePage {
         // Click the logout link
         click(driver.findElement(By.cssSelector("#logout_sidebar_link")));
         System.out.println("Logout performed successfully via BasePage.");
+    }
+
+    // A method that simulates a hover by moving the mouse to an element
+    public void moveMouseToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
     }
 }
