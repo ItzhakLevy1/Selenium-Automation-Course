@@ -18,30 +18,30 @@ public class TasksPage extends BasePage {
         super(driver);
     }
 
-    /*================= A METHOD TO ADD A TASK =================*/
-    public void addTaskIfDoentExist(String newTaskName) throws InterruptedException {
+    /*================= A METHOD TO ADD A TASK LIST =================*/
+    public void addTasklistIfDoesNotExist(String newTaskListName) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Grab all existing tasks
-        List<WebElement> listOfTasks = driver.findElements(By.cssSelector("div.title-block > span.title"));
-        boolean taskAlreadyExists = false;
+        // Grab all existing taskLists
+        List<WebElement> listOfTaskLists = driver.findElements(By.cssSelector("div.title-block > span.title"));
+        boolean taskListAlreadyExists = false;
 
-        // 1. Check if the task already exists
-        for (WebElement element : listOfTasks) {
-            if (element.getText().equalsIgnoreCase(newTaskName)) {
-                taskAlreadyExists = true;
-                System.out.println("Task already exists! aborting...");
-                break; // Since the task already exists exit and stop the search loop
+        // 1. Check if the task list already exists
+        for (WebElement element : listOfTaskLists) {
+            if (element.getText().equalsIgnoreCase(newTaskListName)) {
+                taskListAlreadyExists = true;
+                System.out.println("Task list already exists! aborting...");
+                break; // Since the task list already exists exit and stop the search loop
             }
         }
 
-        // Making a desition outside of the search loop
-        if (taskAlreadyExists) {
-            System.out.println("Task name is already in use!");
+        // Making a desition outside the search loop
+        if (taskListAlreadyExists) {
+            System.out.println("Task list name is already in use!");
         } else {
-            System.out.println("Task name is not yet in use, I'll add it for you.");
+            System.out.println("Task list name is not yet in use, I'll add it for you.");
 
-            // Logic for adding a new task
+            // Logic for adding a new taskList
             click(driver.findElement(By.cssSelector(".tab-height-wrapper > span")));
 
             // Wait until the element is visible, in case it does not exist - after 10 seconds (dynamic) display an informative error
@@ -50,7 +50,7 @@ public class TasksPage extends BasePage {
             // Wait for 2 seconds regardless
             Thread.sleep(2000);
 
-            fillText(driver.findElement(By.cssSelector("#modalTextInput")), newTaskName);
+            fillText(driver.findElement(By.cssSelector("#modalTextInput")), newTaskListName);
             click(driver.findElement(By.cssSelector("#btnModalOk")));
         }
     }
