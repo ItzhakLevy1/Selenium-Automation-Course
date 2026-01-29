@@ -3,6 +3,7 @@ package pageobjects.mytinytodo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.common.BasePage;
@@ -173,5 +174,55 @@ public class TasksPage extends BasePage {
             System.out.println("Task name has not been found ! : " + taskName);
         }
     }
+
+    /*================= A METHOD TO DRAG AND DROP A TASK =================*/
+    public void dragAndDropTask(String taskName, int targetPosition) {
+        List<WebElement> tasks = driver.findElements(By.cssSelector(".task-block"));
+        boolean found = false; // Using a flag to track success
+
+        for (WebElement task : tasks) {
+            WebElement titleElement = task.findElement(By.cssSelector(".task-title"));
+
+            if (titleElement.getText().equalsIgnoreCase(taskName)) {
+                found = true;
+                /*
+                 * Identify the target location for the drop operation.
+                 * We retrieve the WebElement at the specific index (position) from our list
+                 * to act as the destination for the drag action.
+                 */
+                WebElement targetTask = tasks.get(targetPosition);
+                Actions action = new Actions(driver);
+
+                action.clickAndHold(task)
+                        .pause(Duration.ofMillis(1000))
+                        .moveToElement(targetTask)
+                        .pause(Duration.ofMillis(1000))
+                        .release()
+                        .pause(Duration.ofMillis(1000))
+                        .build()
+                        .perform();
+
+                System.out.println("Dragged task '" + taskName + "' to position " + targetPosition);
+                break; // Exit ONLY when the task is found and moved
+            }
+        }
+
+        // Check after the loop if the task was ever found
+        if (!found) {
+            System.out.println("Task '" + taskName + "' was not found in the list.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
