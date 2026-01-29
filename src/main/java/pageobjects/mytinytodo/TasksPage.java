@@ -55,6 +55,44 @@ public class TasksPage extends BasePage {
         }
     }
 
+    /*================= A METHOD TO DELETE A LIST =================*/
+    public void deleteList(String taskToDelete) throws InterruptedException {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> lists = driver.findElements(By.cssSelector("li.mtt-tab"));
+        boolean found = false;
+
+        for (WebElement element : lists) {
+            WebElement listTitle = element.findElement(By.cssSelector(".title"));
+
+            // Locate the desired list name
+            if (listTitle.getText().equalsIgnoreCase(taskToDelete)) {
+                found = true;
+
+                listTitle.click();
+                Thread.sleep(1000);
+                System.out.println("Delete list card clicked");
+
+                WebElement listCardDeleteButton = element.findElement(By.cssSelector(".list-action.mtt-img-button"));
+                listCardDeleteButton.click();
+                Thread.sleep(1000);
+
+                WebElement optionFromDropDown = driver.findElement(By.cssSelector("#btnDeleteList"));
+                optionFromDropDown.click();
+                Thread.sleep(1000);
+
+                WebElement deleteButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#btnModalOk")));
+                deleteButton.click();
+                Thread.sleep(1000);
+                break;
+            }
+        }
+        if(!found) {
+            System.out.println("List does not exist!");
+        }
+    }
+
+
     /*================= A METHOD TO DELETE A TASK =================*/
     public void deleteTask(String taskName) throws InterruptedException {
         // 1. Setup wait for dynamic elements
