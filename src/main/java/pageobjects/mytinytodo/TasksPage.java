@@ -92,6 +92,46 @@ public class TasksPage extends BasePage {
         }
     }
 
+    /*================= A METHOD TO ADD A TASK =================*/
+    public void addTask(String listToAddTaskTo, String taskToAdd) throws InterruptedException {
+        List<WebElement> lists = driver.findElements(By.cssSelector("li.mtt-tab"));
+        boolean listFound = false;
+
+        for (WebElement list : lists) {
+            if (list.getText().equalsIgnoreCase(listToAddTaskTo)) {
+                listFound = true;
+                list.click();
+                Thread.sleep(1000);
+
+                // 1. Check if task exists (even if the list is empty, this logic works)
+                List<WebElement> listOfTasks = driver.findElements(By.cssSelector(".task-title"));
+                boolean taskAlreadyExists = false;
+
+                for (WebElement existingTask : listOfTasks) {
+                    if (existingTask.getText().equalsIgnoreCase(taskToAdd)) {
+                        taskAlreadyExists = true;
+                        break;
+                    }
+                }
+
+                // 2. Decision making OUTSIDE the tasks loop
+                if (!taskAlreadyExists) {
+                    WebElement tasksToAddInput = driver.findElement(By.cssSelector("#task"));
+                    tasksToAddInput.sendKeys(taskToAdd);
+
+                    WebElement addButtonIcon = driver.findElement(By.cssSelector("#newtask_submit"));
+                    addButtonIcon.click();
+                    System.out.println("Task added successfully: " + taskToAdd);
+                } else {
+                    System.out.println("Task already exists! Aborting...");
+                }
+
+                Thread.sleep(2000);
+                break; // Exit lists loop
+            }
+        }
+    }
+
 
     /*================= A METHOD TO DELETE A TASK =================*/
     public void deleteTask(String taskName) throws InterruptedException {
