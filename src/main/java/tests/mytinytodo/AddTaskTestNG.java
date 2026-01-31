@@ -22,6 +22,10 @@ public class AddTaskTestNG {
     public void testAddTask() throws InterruptedException {
         TasksPage tp = new TasksPage(driver);
         tp.addTask("Be great !", "Be great 1");
+
+        // Add as many as you want, they will run perfectly one after the other:
+//        tp.addTask("Be great !", "Be great 2");
+//        tp.addTask("Be great !", "Be great 3");
     }
 
     @AfterClass
