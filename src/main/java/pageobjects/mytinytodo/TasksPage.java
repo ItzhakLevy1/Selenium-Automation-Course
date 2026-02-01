@@ -60,38 +60,50 @@ public class TasksPage extends BasePage {
     }
 
     /*================= A METHOD TO DELETE A LIST =================*/
-    public void deleteList(String taskToDelete) throws InterruptedException {
-
+    public void deleteList(String listToDelete) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         boolean found = false;
 
         for (WebElement element : tasksLists) {
-            WebElement listTitle = element.findElement(By.cssSelector(".title"));
-
-            // Locate the desired list name
-            if (listTitle.getText().equalsIgnoreCase(taskToDelete)) {
+            /* * Since 'tasksLists' is already defined as 'li.mtt-tab .title' via @FindBy,
+             * 'element' IS the title span. No need to call findElement(By.cssSelector(".title")) again.
+             */
+            if (element.getText().equalsIgnoreCase(listToDelete)) {
                 found = true;
 
-                listTitle.click();
+                // Click the list to ensure it is active
+                element.click();
                 Thread.sleep(1000);
-                System.out.println("Delete list card clicked");
+                System.out.println("List selected for deletion: " + listToDelete);
 
-                WebElement listCardDeleteButton = element.findElement(By.cssSelector(".list-action.mtt-img-button"));
+                /* * We use ancestor::li to find the parent container (the list item),
+                 * Meaning: from the current location (.) which is a span of the current iterated list,
+                 * go up until you find an li that contains the specified class
+                 * regardless of how many nested levels exist between the title and the li.
+                 */
+                WebElement parentLi = element.findElement(By.xpath("./ancestor::li[contains(@class, 'mtt-tab')]"));
+                WebElement listCardDeleteButton = parentLi.findElement(By.cssSelector(".list-action"));
+
                 listCardDeleteButton.click();
                 Thread.sleep(1000);
 
+                // Select the delete option from the dropdown menu
                 WebElement optionFromDropDown = driver.findElement(By.cssSelector("#btnDeleteList"));
                 optionFromDropDown.click();
                 Thread.sleep(1000);
 
+                // Confirm deletion in the modal popup
                 WebElement deleteButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#btnModalOk")));
                 deleteButton.click();
+
+                System.out.println("List '" + listToDelete + "' deleted successfully.");
                 Thread.sleep(1000);
                 break;
             }
         }
-        if(!found) {
-            System.out.println("List does not exist!");
+
+        if (!found) {
+            System.out.println("List deletion failed: '" + listToDelete + "' was not found.");
         }
     }
 
