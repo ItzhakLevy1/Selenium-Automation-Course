@@ -19,7 +19,7 @@ public class AddTaskTestNG {
     }
 
     @Test
-    public void testAddTask() throws InterruptedException {
+    public void tc01_testAddTask() throws InterruptedException {
         TasksPage tp = new TasksPage(driver);
         tp.addTask("Be great !", "Be great 1");
 

@@ -17,7 +17,7 @@ public class DeleteTasksListTestNG {
     }
 
     @Test
-    public void deleteTasksList() throws InterruptedException{
+    public void tc01_deleteTasksList() throws InterruptedException{
         TasksPage tp = new TasksPage(driver);
         tp.deleteList("Be Great !?$");
         Thread.sleep(3000);

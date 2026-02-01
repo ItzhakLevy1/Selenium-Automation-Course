@@ -20,7 +20,7 @@ public class CheckNumOfTasksTestNG extends BaseTest {
     }
 
     @Test
-    public void CheckNumOfTasks() throws InterruptedException {
+    public void tc01_CheckNumOfTasks() throws InterruptedException {
         TasksPage tp = new TasksPage(driver);
 
         tp.chooseListAndClickIt("Be Great !");

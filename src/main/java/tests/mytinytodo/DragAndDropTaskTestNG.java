@@ -21,7 +21,7 @@ public class DragAndDropTaskTestNG {
     }
 
     @Test
-    public void dragAndDrop() {
+    public void tc01_dragAndDrop() {
 
         TasksPage tp = new TasksPage(driver);
         tp.dragAndDropTask(taskName, 0);

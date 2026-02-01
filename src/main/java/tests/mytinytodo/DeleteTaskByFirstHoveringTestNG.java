@@ -23,7 +23,7 @@ public class DeleteTaskByFirstHoveringTestNG {
     }
 
     @Test
-    public void deleteTaskFromTaskRow() throws InterruptedException{
+    public void tc01_deleteTaskFromTaskRow() throws InterruptedException{
         TasksPage tp = new TasksPage(driver);
         tp.deleteTaskFromTaskRow("Be great !", "Be great 1");
         Thread.sleep(2000);
