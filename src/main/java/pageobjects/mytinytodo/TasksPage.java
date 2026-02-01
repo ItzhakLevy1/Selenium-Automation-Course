@@ -51,9 +51,6 @@ public class TasksPage extends BasePage {
             // Wait until the element is visible, in case it does not exist - after 10 seconds (dynamic) display an informative error
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#modalTextInput")));
 
-            // Wait for 2 seconds regardless
-            Thread.sleep(2000);
-
             fillText(driver.findElement(By.cssSelector("#modalTextInput")), newTaskListName);
             click(driver.findElement(By.cssSelector("#btnModalOk")));
         }
@@ -73,7 +70,6 @@ public class TasksPage extends BasePage {
 
                 // Click the list to ensure it is active
                 element.click();
-                Thread.sleep(1000);
                 System.out.println("List selected for deletion: " + listToDelete);
 
                 /* * We use ancestor::li to find the parent container (the list item),
@@ -85,19 +81,16 @@ public class TasksPage extends BasePage {
                 WebElement listCardDeleteButton = parentLi.findElement(By.cssSelector(".list-action"));
 
                 listCardDeleteButton.click();
-                Thread.sleep(1000);
 
                 // Select the delete option from the dropdown menu
-                WebElement optionFromDropDown = driver.findElement(By.cssSelector("#btnDeleteList"));
+                WebElement optionFromDropDown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#btnDeleteList")));
                 optionFromDropDown.click();
-                Thread.sleep(1000);
 
                 // Confirm deletion in the modal popup
                 WebElement deleteButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#btnModalOk")));
                 deleteButton.click();
 
                 System.out.println("List '" + listToDelete + "' deleted successfully.");
-                Thread.sleep(1000);
                 break;
             }
         }
@@ -111,7 +104,6 @@ public class TasksPage extends BasePage {
     public void addTask(String listToAddTaskTo, String taskToAdd) throws InterruptedException {
         // 1. First, navigate to the correct list using our helper method
         chooseListAndClickIt(listToAddTaskTo);
-        Thread.sleep(1000);
 
         // 2. Check if the task already exists in the current list
         List<WebElement> listOfTasks = driver.findElements(By.cssSelector(".task-title"));
@@ -132,8 +124,6 @@ public class TasksPage extends BasePage {
         } else {
             System.out.println("Task '" + taskToAdd + "' already exists! Aborting...");
         }
-
-        Thread.sleep(1000);
     }
 
 
