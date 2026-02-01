@@ -15,7 +15,7 @@ import java.util.List;
 public class TasksPage extends BasePage {
 
     @FindBy(css = "li.mtt-tab .title")
-    private List<WebElement> tasksLists;
+    private List<WebElement> tabs;
 
 
     // Passes the WebDriver instance to the parent BasePage constructor
@@ -31,7 +31,7 @@ public class TasksPage extends BasePage {
         boolean taskListAlreadyExists = false;
 
         // 1. Check if the task list already exists
-        for (WebElement element : tasksLists) {
+        for (WebElement element : tabs) {
             if (element.getText().equalsIgnoreCase(newTaskListName)) {
                 taskListAlreadyExists = true;
                 System.out.println("Task list already exists! aborting...");
@@ -64,8 +64,8 @@ public class TasksPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         boolean found = false;
 
-        for (WebElement element : tasksLists) {
-            /* * Since 'tasksLists' is already defined as 'li.mtt-tab .title' via @FindBy,
+        for (WebElement element : tabs) {
+            /* * Since 'tabs' is already defined as 'li.mtt-tab .title' via @FindBy,
              * 'element' IS the title span. No need to call findElement(By.cssSelector(".title")) again.
              */
             if (element.getText().equalsIgnoreCase(listToDelete)) {
@@ -237,7 +237,7 @@ public class TasksPage extends BasePage {
 
         boolean found = false;
 
-        for (WebElement task : tasksLists) {
+        for (WebElement task : tabs) {
             if (task.getText().equalsIgnoreCase(listName)) {
                 task.click();
                 found = true;
