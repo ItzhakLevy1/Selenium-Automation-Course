@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.common.BasePage;
@@ -12,6 +13,10 @@ import java.time.Duration;
 import java.util.List;
 
 public class TasksPage extends BasePage {
+
+    @FindBy(css = "li.mtt-tab .title")
+    private List<WebElement> tasksLists;
+
 
     // Passes the WebDriver instance to the parent BasePage constructor
     public TasksPage(WebDriver driver) {
@@ -23,11 +28,10 @@ public class TasksPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Grab all existing taskLists
-        List<WebElement> listOfTaskLists = driver.findElements(By.cssSelector("div.title-block > span.title"));
         boolean taskListAlreadyExists = false;
 
         // 1. Check if the task list already exists
-        for (WebElement element : listOfTaskLists) {
+        for (WebElement element : tasksLists) {
             if (element.getText().equalsIgnoreCase(newTaskListName)) {
                 taskListAlreadyExists = true;
                 System.out.println("Task list already exists! aborting...");
@@ -59,10 +63,9 @@ public class TasksPage extends BasePage {
     public void deleteList(String taskToDelete) throws InterruptedException {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        List<WebElement> lists = driver.findElements(By.cssSelector("li.mtt-tab"));
         boolean found = false;
 
-        for (WebElement element : lists) {
+        for (WebElement element : tasksLists) {
             WebElement listTitle = element.findElement(By.cssSelector(".title"));
 
             // Locate the desired list name
@@ -94,42 +97,31 @@ public class TasksPage extends BasePage {
 
     /*================= A METHOD TO ADD A TASK =================*/
     public void addTask(String listToAddTaskTo, String taskToAdd) throws InterruptedException {
-        List<WebElement> lists = driver.findElements(By.cssSelector("li.mtt-tab"));
-        boolean listFound = false;
+        // 1. First, navigate to the correct list using our helper method
+        chooseListAndClickIt(listToAddTaskTo);
+        Thread.sleep(1000);
 
-        for (WebElement list : lists) {
-            if (list.getText().equalsIgnoreCase(listToAddTaskTo)) {
-                listFound = true;
-                list.click();
-                Thread.sleep(1000);
+        // 2. Check if the task already exists in the current list
+        List<WebElement> listOfTasks = driver.findElements(By.cssSelector(".task-title"));
+        boolean taskAlreadyExists = false;
 
-                // 1. Check if task exists (even if the list is empty, this logic works)
-                List<WebElement> listOfTasks = driver.findElements(By.cssSelector(".task-title"));
-                boolean taskAlreadyExists = false;
-
-                for (WebElement existingTask : listOfTasks) {
-                    if (existingTask.getText().equalsIgnoreCase(taskToAdd)) {
-                        taskAlreadyExists = true;
-                        break;
-                    }
-                }
-
-                // 2. Decision making OUTSIDE the tasks loop
-                if (!taskAlreadyExists) {
-                    WebElement tasksToAddInput = driver.findElement(By.cssSelector("#task"));
-                    tasksToAddInput.sendKeys(taskToAdd);
-
-                    WebElement addButtonIcon = driver.findElement(By.cssSelector("#newtask_submit"));
-                    addButtonIcon.click();
-                    System.out.println("Task added successfully: " + taskToAdd);
-                } else {
-                    System.out.println("Task already exists! Aborting...");
-                }
-
-                Thread.sleep(2000);
-                break; // Exit lists loop
+        for (WebElement existingTask : listOfTasks) {
+            if (existingTask.getText().equalsIgnoreCase(taskToAdd)) {
+                taskAlreadyExists = true;
+                break;
             }
         }
+
+        // 3. Add the task only if it's unique
+        if (!taskAlreadyExists) {
+            driver.findElement(By.cssSelector("#task")).sendKeys(taskToAdd);
+            driver.findElement(By.cssSelector("#newtask_submit")).click();
+            System.out.println("Task added successfully: " + taskToAdd);
+        } else {
+            System.out.println("Task '" + taskToAdd + "' already exists! Aborting...");
+        }
+
+        Thread.sleep(1000);
     }
 
 
@@ -291,16 +283,29 @@ public class TasksPage extends BasePage {
         }
     }
 
+    // A method that looks for a list and clicks it to get its value
+    public void chooseListAndClickIt(String listName) {
 
+        boolean found = false;
 
+        for (WebElement task : tasksLists) {
+            if (task.getText().equalsIgnoreCase(listName)) {
+                task.click();
+                found = true;
+            }
+        }
 
+        if (!found) {
+            System.out.println("List " + listName + " was not found.");
+        }
+    }
 
+    /*================= VALIDATION METHODS =================*/
 
-
-
-
-
-
-
-
+    public int getNumOfTasks() {
+        String s = driver.findElement(By.cssSelector("#total")).getText();
+        System.out.println("Number of tasks are : " + s);
+        int numOfTasks = Integer.parseInt(s);   // Convert type String into an int
+        return numOfTasks;
+    }
 }
