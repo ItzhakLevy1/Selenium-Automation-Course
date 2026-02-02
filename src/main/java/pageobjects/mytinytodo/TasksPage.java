@@ -23,6 +23,7 @@ public class TasksPage extends BasePage {
         super(driver);
     }
 
+
     /*================= A METHOD TO ADD A TASK LIST =================*/
     public void addTasklistIfDoesNotExist(String newTaskListName) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -55,6 +56,7 @@ public class TasksPage extends BasePage {
             click(driver.findElement(By.cssSelector("#btnModalOk")));
         }
     }
+
 
     /*================= A METHOD TO DELETE A LIST =================*/
     public void deleteList(String listToDelete) throws InterruptedException {
@@ -99,6 +101,7 @@ public class TasksPage extends BasePage {
             System.out.println("List deletion failed: '" + listToDelete + "' was not found.");
         }
     }
+
 
     /*================= A METHOD TO ADD A TASK =================*/
     public void addTask(String listToAddTaskTo, String taskToAdd) throws InterruptedException {
@@ -184,16 +187,24 @@ public class TasksPage extends BasePage {
         }
     }
 
-    /*================= A METHOD TO DRAG AND DROP A TASK =================*/
-    public void dragAndDropTask(String taskName, int targetPosition) {
-        List<WebElement> tasks = driver.findElements(By.cssSelector(".task-block"));
-        boolean found = false; // Using a flag to track success
 
+    /*================= A METHOD TO DRAG AND DROP A TASK =================*/
+    public void dragAndDropTask(String listName, String taskName, int targetPosition) throws  InterruptedException {
+
+        // A helper function to click on the desired list
+        chooseListAndClickIt(listName);
+        Thread.sleep(2000);
+
+        // Grab all existing tasks
+        List<WebElement> tasks = driver.findElements(By.cssSelector(".task-block"));
+        boolean foundTask = false; // Using a flag to track success
+
+        // Loop all tasks and compare their title to the one we are looking for
         for (WebElement task : tasks) {
             WebElement titleElement = task.findElement(By.cssSelector(".task-title"));
 
             if (titleElement.getText().equalsIgnoreCase(taskName)) {
-                found = true;
+                foundTask = true;
                 /*
                  * Identify the target location for the drop operation.
                  * We retrieve the WebElement at the specific index (position) from our list
@@ -217,10 +228,29 @@ public class TasksPage extends BasePage {
         }
 
         // Check after the loop if the task was ever found
-        if (!found) {
+        if (!foundTask) {
             System.out.println("Task '" + taskName + "' was not found in the list.");
         }
+
+        // Loop through all existing tasks to make sure the selected task was dragged successfully ( Print the current tasks order )
+        List<WebElement> updatedTasks = driver.findElements(By.cssSelector(".task-block"));
+
+        System.out.println("--- Current Task Order After Dragging ---");
+
+        // We use a standard for-loop to have access to the index 'i'
+        for (int i = 0; i < updatedTasks.size(); i++) {
+
+            // 1. Get the task at the current index
+            WebElement task = updatedTasks.get(i);
+
+            // 2. Find the title within that specific task
+            WebElement titleElement = task.findElement(By.cssSelector(".task-title"));
+
+            // 3. Print the index 'i' (the position) and the text
+            System.out.println("Position " + i + ": " + titleElement.getText());
+        }
     }
+
 
     // A method that looks for a list and clicks it to get its value
     public void chooseListAndClickIt(String listName) {
@@ -238,6 +268,7 @@ public class TasksPage extends BasePage {
             System.out.println("List " + listName + " was not found.");
         }
     }
+
 
     /*================= VALIDATION METHODS =================*/
 
