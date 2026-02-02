@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="MyTinyTodo Regression Suite">
+
+    <test name="Task Management Tests" preserve-order="true">
+        <classes>
+            <!-- Create a list/tab -->
+            <!-- Create 3 tasks in the previously created list/tab -->
+            <!-- Drag and drop the last task into the first position -->
+            <!-- Delete the first positioned ( At index one ) task -->
+            <!-- Check the number of existing tasks -->
+            <!-- Delete the list/tab -->
+
+            <class name="tests.mytinytodo.AddTaskListTestNG" />
+            <class name="tests.mytinytodo.AddTaskTestNG" />
+            <class name="tests.mytinytodo.DragAndDropTaskTestNG" />
+            <class name="tests.mytinytodo.DeleteTaskByFirstHoveringTestNG" />
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
+            <class name="tests.mytinytodo.DeleteTasksListTestNG" />
+        </classes>
+    </test>
+
+    <!-- Additional separated test -->
+    <test name="Task Management Tests 2">
+        <classes>
+            <!-- Create a list/tab -->
+            <!-- Create 3 tasks in the previously created list/tab -->
+
+            <class name="tests.mytinytodo.AddTaskListTestNG" />
+            <class name="tests.mytinytodo.AddTaskTestNG" />
+        </classes>
+    </test>
+
+</suite>
+
+
+
+
+<!--====================    An extensive set of examples for what can be used in an XML file: ====================-->
+
+
+<!--        <?xml version="1.0" encoding="UTF-8"?>-->
+<!--        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">-->
+
+<!--        &lt;!&ndash; Parallel Execution: A setting that will cause tests to run in multiple browsers simultaneously to save time &ndash;&gt;-->
+<!--        &lt;!&ndash; <suite name="Parallel Suite" parallel="methods" thread-count="3"> &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; * "suite" is your entire factory, test is a specific assembly line (like a "task assembly line"). -->
+<!--                    It helps you organize the final report and separate different areas of the site you are testing. -->
+<!--             * name = The name of the entire test series.-->
+<!--             * parallel="classes" = Each class (test file) will get its own browser and run simultaneously with other classes.-->
+<!--             * thread-count="2" = This is the Limit we set, the maximum number of browser instance / threads TestNG is allowed to open at a given time.-->
+<!--         &ndash;&gt;-->
+<!--        <suite name="Full Automation Suite" parallel="classes" thread-count="2">-->
+
+<!--            &lt;!&ndash;Parameters (parameters): Sending global data to tests (such as browser type or URL)&ndash;&gt;-->
+<!--            <parameter name="browser" value="chrome" />-->
+<!--            <parameter name="baseUrl" value="https://www.mytinytodo.net/demo/" />-->
+
+<!--            &lt;!&ndash;Listeners: Connection of external classes that generate advanced reports (like Allure or ExtentReports)-->
+<!--            or perform actions in the event of a test failure (like automatic screenshot capture)&ndash;&gt;-->
+<!--            <listeners>-->
+<!--                <listener class-name="org.testng.reporters.EmailableReporter2" />-->
+<!--            </listeners>-->
+
+<!--            &lt;!&ndash; <test> is like a "Container" where you define which classes or packages belong to the same topic and run each <test> separately from one another &ndash;&gt;-->
+<!--            <test name="Task Management Regression">-->
+
+<!--                &lt;!&ndash;Groups: Tell TestNG to only run tests that belong to a specific group (e.g. only "Smoke" or "Regression" tests)&ndash;&gt;-->
+<!--                <groups>-->
+<!--                    <run>-->
+<!--                        <include name="smoke" />-->
+<!--                        <include name="regression" />-->
+<!--                    </run>-->
+<!--                </groups>-->
+
+<!--                &lt;!&ndash; We can specify which classes to run &ndash;&gt;-->
+<!--                <classes>-->
+<!--                    <class name="tests.mytinytodo.LoginTest" />-->
+
+<!--                    <class name="tests.mytinytodo.TasksPageTests">-->
+
+<!--                        &lt;!&ndash; We can specify which methods to run &ndash;&gt;-->
+<!--                        <methods>-->
+<!--                            <include name="testAddTask" />-->
+<!--                            <exclude name="testObsoleteFunction" />-->
+<!--                        </methods>-->
+<!--                    </class>-->
+<!--                </classes>-->
+
+<!--                &lt;!&ndash; We can specify which packages to run &ndash;&gt;-->
+<!--                <packages>-->
+<!--                    <package name="tests.mytinytodo.api" />-->
+<!--                </packages>-->
+
+<!--            </test>-->
+<!--        </suite>-->

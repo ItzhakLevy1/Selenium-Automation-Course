@@ -9,7 +9,11 @@ import tests.common.BaseTest;
 
 public class DragAndDropTaskTestNG {
 
-    private final String taskName = "Be great 1";
+    // The list to add a task to
+    private final String listName = "Be Great !";
+
+    // The task to add
+    private final String taskName = "Be great 3";
 
     WebDriver driver;
 
@@ -17,14 +21,14 @@ public class DragAndDropTaskTestNG {
     public void setup() throws InterruptedException{
         driver = BaseTest.initDriver();
         driver.get("https://www.mytinytodo.net/demo");
-        Thread.sleep(6000);
+        Thread.sleep(1000);
     }
 
     @Test
-    public void tc01_dragAndDrop() {
+    public void tc01_dragAndDrop() throws InterruptedException{
 
         TasksPage tp = new TasksPage(driver);
-        tp.dragAndDropTask(taskName, 0);
+        tp.dragAndDropTask(listName, taskName, 0);
 
     }
 

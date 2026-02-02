@@ -1,6 +1,7 @@
 package tests.mytinytodo;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -9,6 +10,8 @@ import pageobjects.mytinytodo.TasksPage;
 import tests.common.BaseTest;
 
 public class CheckNumOfTasksTestNG extends BaseTest {
+
+    WebDriverWait wait;
 
     WebDriver driver;
 
@@ -29,15 +32,16 @@ public class CheckNumOfTasksTestNG extends BaseTest {
         int before = tp.getNumOfTasks();
         System.out.println("Before : " + before);
 
-        tp.addTask("Be Great !", "Be great 7");
+        tp.addTask("Be Great !", "Be great 3");
+
+        // Allow the added task to be created and detected
+        Thread.sleep(1000);
 
         int after = tp.getNumOfTasks();
         System.out.println("After : " + after);
 
-        // A comparison between 2 values, in case of a miss match the test will fail and the error message we have set will show
-        Assert.assertEquals(after, before + 1, "The task count did not increment correctly! The expected amount of 'after' does not match !");
+        Assert.assertEquals(after, before + 1, "The task count did not increment correctly!");
     }
-
     @AfterClass
     public void teardown(){
         if(driver != null){
