@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="MyTinyTodo Regression Suite">
+<!-- 3 threads in total are allocated for this suit,
+ One for each test, once the first thread becomes available (after the first test has ended) it joins the seconde test to run classes in parallel -->
+<suite name="MyTinyTodo Regression Suite" thread-count="3" parallel="classes">
 
-     <!--thread-count="3" parallel="classes"-->
+    <!-- preserve-order="true" will allocate only one thread for this test so that to make sure the classes will run one after the other and not in parallel -->
     <test name="Task Management Tests" preserve-order="true">
         <classes>
             <!-- Create a list/tab -->
@@ -25,11 +27,14 @@
     <!-- Additional separated test -->
     <test name="Task Management Tests 2">
         <classes>
-            <!-- Create a list/tab -->
-            <!-- Create 3 tasks in the previously created list/tab -->
 
-            <class name="tests.mytinytodo.AddTaskListTestNG" />
-            <class name="tests.mytinytodo.AddTaskTestNG" />
+            <!-- Since there is no preserve-order="true" in this test All classes in this test can run in parallel, in accordance to the number of available threads -->
+
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
+            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
         </classes>
     </test>
 
