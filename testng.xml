@@ -3,6 +3,7 @@
 
 <suite name="MyTinyTodo Regression Suite">
 
+     <!--thread-count="3" parallel="classes"-->
     <test name="Task Management Tests" preserve-order="true">
         <classes>
             <!-- Create a list/tab -->
@@ -37,8 +38,54 @@
 
 
 
-<!--====================    An extensive set of examples for what can be used in an XML file: ====================-->
+        <!--==================== An suite example sharing threads between 2 tests: ====================-->
 
+        <!--
+        thread-count="4" means 4 threads in total has been allocated for the entire suit,
+        one for the first test, and the other 3 for the second test,
+        Since the second test can run several threads/webbrowser instances at the same time
+        Once the first test finishes and its thread becomes available - it will join the second test to run additional classes in paraLlel
+        -->
+        <!--<suite name="Hybrid Suite" parallel="tests" thread-count="4">-->
+
+        <!--
+        This test block is configured with preserve-order="true" because it follows a strict functional sequence
+        where each step depends on the success of the previous one, such as Login before Post Creation.
+        This ensures the logical flow of the user journey is maintained without state conflicts.
+        -->
+        <!--<test name="E2E Flow" preserve-order="true">-->
+        <!--    <classes>-->
+        <!--        <class name="tests.LoginTest" />-->
+        <!--        <class name="tests.CreateUserTest" />-->
+        <!--        <class name="tests.PostContentTest" />-->
+        <!--    </classes>-->
+        <!--</test>-->
+
+        <!--
+        These tests target independent UI elements that do not share data or dependencies.
+        This allows them to be executed in isolation or across multiple threads to maximize efficiency and reduce the total duration of the regression suite.
+        This test will use any thread that is available + any thread that becomes available from other tests in this suit
+        -->
+        <!--<test name="UI Components Checks">-->
+        <!--    <classes>-->
+        <!--        <class name="tests.FooterLinksTest" />-->
+        <!--        <class name="tests.ContactFormTest" />-->
+        <!--        <class name="tests.SearchFunctionalityTest" />-->
+        <!--        <class name="tests.Operation 2" />-->
+        <!--        <class name="tests.Operation 3" />-->
+        <!--        <class name="tests.Operation 4" />-->
+        <!--        <class name="tests.Operation 5" />-->
+
+        <!--    </classes>-->
+        <!--</test>-->
+
+        <!--</suite>-->
+
+
+
+
+
+        <!--====================    An extensive set of examples for what can be used in an XML file: ====================-->
 
 <!--        <?xml version="1.0" encoding="UTF-8"?>-->
 <!--        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">-->
