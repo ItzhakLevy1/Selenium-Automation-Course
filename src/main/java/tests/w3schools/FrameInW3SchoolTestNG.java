@@ -1,4 +1,4 @@
-package automation;
+package tests.w3schools;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
