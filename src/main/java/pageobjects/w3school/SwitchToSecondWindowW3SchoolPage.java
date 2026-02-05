@@ -7,10 +7,10 @@ import pageobjects.common.BasePage;
 
 import java.util.Set;
 
-public class SwitchWindowsW3SchoolPage extends BasePage {
+public class SwitchToSecondWindowW3SchoolPage extends BasePage {
 
     // A constructor
-    public SwitchWindowsW3SchoolPage(WebDriver driver) {
+    public SwitchToSecondWindowW3SchoolPage(WebDriver driver) {
         super(driver);
     }
 
