@@ -2,6 +2,7 @@ package pageobjects.saucedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pageobjects.common.BasePage;
 
 /**
@@ -28,5 +29,10 @@ public class LoginPage extends BasePage {
 
         // Locate and click the login/submit button to finalize the process
         click(driver.findElement(By.cssSelector("#login-button")));
+    }
+
+    public String getErrorMessage() {
+        WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
+        return errorMessage.getText();
     }
 }
