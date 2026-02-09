@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.saucedemo.LoginPage;
 import tests.common.BaseTest;
+import utils.Utils;
 
 public class LoginDataDrivenTestingTestNG {
 
@@ -17,7 +18,7 @@ public class LoginDataDrivenTestingTestNG {
     @BeforeClass
     public void setup() {
         driver = BaseTest.initDriver();
-        driver.get("https://www.saucedemo.com/");
+        driver.get(Utils.readProperty("url"));
 
         // Initialize the Page Object once here instead of inside every test method.
         lp = new LoginPage(driver);
@@ -35,7 +36,7 @@ public class LoginDataDrivenTestingTestNG {
         // Expected - the expected message we should get after login fails
         String expected = "Epic sadface: Username and password do not match any user in this service";
 
-        // Comparing both messages to varify the out come
+        // Comparing both messages to varify the outcome
         Assert.assertEquals(actual, expected);
     }
 
@@ -70,6 +71,22 @@ public class LoginDataDrivenTestingTestNG {
                 {"yonit", "1#444"},
                 {"gal", "123456878"}
         };
+    }
+
+    @Test(priority = 3, description = "Login using credentials from an external properties file")
+    public void tc03_loginFromProperties() {
+
+        // Fetching the data using the keys defined in the properties file
+        String userFromProp = Utils.readProperty("username");
+        String passFromProp = Utils.readProperty("password");
+
+        // Refreshing the page before each iteration to clear old error messages and states.
+        driver.navigate().refresh();
+        lp.login(userFromProp, passFromProp);
+
+        // Verification - since we used valid credentials, we expect to see the 'Products' title after a successful login
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("inventory.html"), "Login failed using properties file credentials!");
     }
 
     @AfterClass
