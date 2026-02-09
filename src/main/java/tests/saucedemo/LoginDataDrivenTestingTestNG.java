@@ -11,26 +11,31 @@ import tests.common.BaseTest;
 
 public class LoginDataDrivenTestingTestNG {
 
-    WebDriver driver;
-    private LoginPage lp;
+    private WebDriver driver;
+    private LoginPage lp; // Class-level variable
 
     @BeforeClass
     public void setup() {
         driver = BaseTest.initDriver();
         driver.get("https://www.saucedemo.com/");
 
+        // Initialize the Page Object once here instead of inside every test method.
+        lp = new LoginPage(driver);
     }
 
-    @Test (description="Test the login failed scenario - check that login failed, and you get the right message")
+    @Test(priority = 1, description = "Test the login failed scenario with hardcoded data")
     public void tc01_loginFail() {
-        // Initiate the login page object
-        lp = new LoginPage(driver);
-        // Call the login methods from the login page - the login should fail
-        lp.login("standard_user","123");
-        // Actual - should get the error message we get after the login failed
+
+        // Call the login method from the login page
+        lp.login("standard_user", "123");
+
+        // Actual - the error message we get after the login fails
         String actual = lp.getErrorMessage();
-        // Expected - the expected message we should get after login failed
+
+        // Expected - the expected message we should get after login fails
         String expected = "Epic sadface: Username and password do not match any user in this service";
+
+        // Comparing both messages to varify the out come
         Assert.assertEquals(actual, expected);
     }
 
@@ -39,15 +44,15 @@ public class LoginDataDrivenTestingTestNG {
      * 1. Create a method to read from with @DataProvider annotation (in this example it's called getData())
      * 2. Add dataProvider="getData" parameter to the @Test
      */
-    @Test(dataProvider="getData", description="use incorrect login information")
-    public void tc02_loginFailDDT(String user,String password) {
+    @Test(priority = 2, dataProvider = "getData", description = "DDT login failure with various incorrect credentials")
+    public void tc02_loginFailDDT(String user, String password) {
 
-        // Create a new LoginPage instance
-        lp = new LoginPage(driver);
-        // Using the variables we got from the @DataProvider method
+        // Refreshing the page before each iteration to clear old error messages and states.
+        driver.navigate().refresh();
+
         lp.login(user, password);
 
-        // Should check that we get the right message
+        // Check that we got the right message
         String expected = "Epic sadface: Username and password do not match any user in this service";
         String actual = lp.getErrorMessage();
         Assert.assertEquals(actual, expected);
@@ -58,14 +63,13 @@ public class LoginDataDrivenTestingTestNG {
      * Using the @DataProvider the method above will get the parameters for each iteration.
      */
     @DataProvider
-    public Object[][] getData(){
-        Object[][] myData = {
-                {"user1","123"},
-                {"gal","123"},
-                {"yonit","1#444"},
-                {"gal","123456878"},
+    public Object[][] getData() {
+        return new Object[][]{
+                {"user1", "123"},
+                {"gal", "123"},
+                {"yonit", "1#444"},
+                {"gal", "123456878"}
         };
-        return myData;
     }
 
     @AfterClass
