@@ -77,7 +77,7 @@ public class LoginDataDrivenTestingTestNG {
     public void tc03_loginFromProperties() {
 
         // Fetching the data using the keys defined in the properties file
-        String userFromProp = Utils.readProperty("username");
+        String userFromProp = Utils.readProperty("username1");
         String passFromProp = Utils.readProperty("password");
 
         // Refreshing the page before each iteration to clear old error messages and states.

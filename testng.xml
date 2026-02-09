@@ -1,44 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<!-- 3 threads in total are allocated for this suit,
- One for each test, once the first thread becomes available (after the first test has ended) it joins the seconde test to run classes in parallel -->
-<suite name="MyTinyTodo Regression Suite" thread-count="3" parallel="classes">
+<suite name="https://www.saucedemo.com login Suite" thread-count="3" parallel="classes">
 
-    <!-- preserve-order="true" will allocate only one thread for this test so that to make sure the classes will run one after the other and not in parallel -->
-    <test name="Task Management Tests" preserve-order="true">
+    <test name="Login test" >
         <classes>
-            <!-- Create a list/tab -->
-            <!-- Create 3 tasks in the previously created list/tab -->
-            <!-- Drag and drop the last task into the first position -->
-            <!-- Delete the first positioned ( At index one ) task -->
-            <!-- Check the number of existing tasks -->
-            <!-- Delete the list/tab -->
-
-            <class name="tests.mytinytodo.AddTaskListTestNG" />
-            <class name="tests.mytinytodo.AddTaskTestNG" />
-            <class name="tests.mytinytodo.DragAndDropTaskTestNG" />
-            <class name="tests.mytinytodo.DeleteTaskByFirstHoveringTestNG" />
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-            <class name="tests.mytinytodo.DeleteTasksListTestNG" />
+            <class name="tests.saucedemo.LoginDataDrivenTestingTestNG"></class>
         </classes>
     </test>
-
-    <!-- Additional separated test -->
-    <test name="Task Management Tests 2">
-        <classes>
-
-            <!-- Since there is no preserve-order="true" in this test All classes in this test can run in parallel, in accordance to the number of available threads -->
-
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />
-        </classes>
-    </test>
-
 </suite>
+    
+
+<!--==================== A suite example : ====================-->
+
+<!--&lt;!&ndash; 3 threads in total are allocated for this suit,-->
+<!-- One for each test, once the first thread becomes available (after the first test has ended) it joins the seconde test to run classes in parallel &ndash;&gt;-->
+<!--<suite name="MyTinyTodo Regression Suite" thread-count="3" parallel="classes">-->
+
+<!--    &lt;!&ndash; preserve-order="true" will allocate only one thread for this test so that to make sure the classes will run one after the other and not in parallel &ndash;&gt;-->
+<!--    <test name="Task Management Tests" preserve-order="true">-->
+<!--        <classes>-->
+<!--            &lt;!&ndash; Create a list/tab &ndash;&gt;-->
+<!--            &lt;!&ndash; Create 3 tasks in the previously created list/tab &ndash;&gt;-->
+<!--            &lt;!&ndash; Drag and drop the last task into the first position &ndash;&gt;-->
+<!--            &lt;!&ndash; Delete the first positioned ( At index one ) task &ndash;&gt;-->
+<!--            &lt;!&ndash; Check the number of existing tasks &ndash;&gt;-->
+<!--            &lt;!&ndash; Delete the list/tab &ndash;&gt;-->
+
+<!--            <class name="tests.mytinytodo.AddTaskListTestNG" />-->
+<!--            <class name="tests.mytinytodo.AddTaskTestNG" />-->
+<!--            <class name="tests.mytinytodo.DragAndDropTaskTestNG" />-->
+<!--            <class name="tests.mytinytodo.DeleteTaskByFirstHoveringTestNG" />-->
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--            <class name="tests.mytinytodo.DeleteTasksListTestNG" />-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    &lt;!&ndash; Additional separated test &ndash;&gt;-->
+<!--    <test name="Task Management Tests 2">-->
+<!--        <classes>-->
+
+<!--            &lt;!&ndash; Since there is no preserve-order="true" in this test All classes in this test can run in parallel, in accordance to the number of available threads &ndash;&gt;-->
+
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--            <class name="tests.mytinytodo.CheckNumOfTasksTestNG" />-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--</suite>-->
 
 
 
