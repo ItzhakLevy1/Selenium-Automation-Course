@@ -85,6 +85,10 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         driver.navigate().refresh();
         lp.login(userFromProp, passFromProp);
 
+        if (driver.getCurrentUrl().contains("inventory.html")) {
+            lp.takeManualScreenshot("tc03_Successful_Login_Dashboard");
+        }
+
         // Verification - since we used valid credentials, we expect to see the 'Products' title after a successful login
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("inventory.html"), "Login failed using properties file credentials!");

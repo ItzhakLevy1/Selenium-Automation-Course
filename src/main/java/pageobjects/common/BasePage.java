@@ -1,11 +1,14 @@
 package pageobjects.common;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Set;
 
@@ -162,6 +165,39 @@ public class BasePage {
         } catch (InterruptedException e) {
             // Print the error stack trace if the sleep thread is interrupted
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Captures a screenshot manually at any point during the test.
+     * This is useful for documenting successful steps or specific UI states.
+     * @param fileName The name to give the screenshot file (without extension).
+     */
+    public void takeManualScreenshot(String fileName) {
+        // Cast the driver instance to TakesScreenshot to access the capture functionality
+        TakesScreenshot ts = (TakesScreenshot) driver;
+
+        // Capture the current browser view and store it in a temporary file
+        File srcFile = ts.getScreenshotAs(OutputType.FILE);
+
+        // Define the destination directory relative to the project root
+        File directory = new File("./ManualScreenshots/");
+
+        // Check if the directory exists; if not, create it to avoid FileNotFoundException
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        try {
+            // Construct the full destination path and copy the screenshot file there
+            // The file is saved in .jpg format using the provided fileName
+            FileUtils.copyFile(srcFile, new File(directory + "/" + fileName + ".jpg"));
+
+            // Log a success message to the console for tracking
+            System.out.println("Manual screenshot saved: " + fileName);
+        } catch (IOException e) {
+            // Log an error message to the error stream if the file operation fails
+            System.err.println("Failed to save manual screenshot: " + e.getMessage());
         }
     }
 }
