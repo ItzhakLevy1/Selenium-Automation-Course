@@ -68,7 +68,22 @@ public class BasePage {
     }
 
     public void moveMouseToElement(WebElement element) {
+        // Ensure the element is visible in the DOM before attempting any interaction
         wait.until(ExpectedConditions.visibilityOf(element));
+
+        // Get the current inline style so we don't overwrite important layout properties
+        String originalStyle = element.getAttribute("style");
+
+        // Concatenate the new highlight styles with the original ones
+        String highlightedStyle = originalStyle + " border: 5px solid blue; box-shadow: 0px 0px 15px;";
+
+        // Cast driver to JavascriptExecutor to modify the element's visual style directly in the browser
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Apply the combined style string
+        js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, highlightedStyle);
+
+        // Initialize Actions class and perform a mouse move operation to the center of the element
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
