@@ -1,9 +1,6 @@
 package pageobjects.common;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,6 +36,10 @@ public class BasePage {
      */
     public void fillText(WebElement element, String text) {
         wait.until(ExpectedConditions.visibilityOf(element));
+
+        // Highlighting the element before interaction
+        highlightElement(element, "blue");
+
         element.clear();
         element.sendKeys(text);
     }
@@ -46,7 +47,12 @@ public class BasePage {
     /* * Updated click to ensure the element is clickable before performing the action.
      */
     public void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+        // Highlighting the element before clicking
+        highlightElement(element, "red");
+
+        element.click();
     }
 
     public void logout() throws InterruptedException {
@@ -113,5 +119,34 @@ public class BasePage {
         // Depending on browser settings, focus might stay on the original page.
         // To be safe, always explicitly switch back if needed.
         driver.switchTo().window(originalWindow);
+    }
+
+    // A method that paints elements as they become active
+    private void highlightElement(WebElement element, String color) {
+        // Store the current style to revert back to it later
+        String originalStyle = element.getAttribute("style");
+
+        // Construct a new style string with the desired border color and background
+        String newStyle = "border: 3px solid " + color + "; " +
+                          "box-shadow: 0px 0px 15px " + color + "; " +
+                          "transform: scale(1.05); " +
+                          "transition: all 0.2s ease-in-out; " +
+                          originalStyle;
+
+        // Cast the WebDriver instance to JavascriptExecutor to enable running JS code within the browser
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Apply the new highlighted style to the element
+        js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, newStyle);
+
+        try {
+            // Pause execution for a moment to make the highlight visible to the eye
+            Thread.sleep(400);
+            // Execute the script to update the element's style attribute back to the original state
+            js.executeScript("arguments[0].setAttribute('style', 'transition: all 0.2s ease-in-out; ' + arguments[1]);", element, originalStyle);
+        } catch (InterruptedException e) {
+            // Print the error stack trace if the sleep thread is interrupted
+            e.printStackTrace();
+        }
     }
 }
