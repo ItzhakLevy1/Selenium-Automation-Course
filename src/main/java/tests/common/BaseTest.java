@@ -44,7 +44,7 @@ public class BaseTest {
 
     /**
      * This method runs automatically after EACH test method.
-     * It captures a screenshot only if the test failed.
+     * It captures a screenshot only if the test failed, including a timestamp for uniqueness.
      */
     @AfterMethod
     public void failedTest(ITestResult result) {
@@ -52,14 +52,23 @@ public class BaseTest {
             // Cast driver to TakesScreenshot interface
             TakesScreenshot ts = (TakesScreenshot) driver;
 
-            // Capture the screenshot as a file
+            // Capture the screenshot as a temporary file
             File srcFile = ts.getScreenshotAs(OutputType.FILE);
 
+            // Generate a unique timestamp for the filename
+            String timeStamp = new java.text.SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new java.util.Date());
+
             try {
-                // Save the screenshot with the test name in the ScreenShots folder
-                FileUtils.copyFile(srcFile, new File("./ScreenShots/" + result.getName() + ".jpg"));
-                System.out.println("Screenshot taken for failed test: " + result.getName());
+                // Define the file path using the test name and the generated timestamp
+                String fileName = result.getName() + "_" + timeStamp + ".jpg";
+                File destFile = new File("./ScreenShots/" + fileName);
+
+                // Copy the temporary file to the permanent ScreenShots folder
+                FileUtils.copyFile(srcFile, destFile);
+
+                System.out.println("Screenshot taken for failed test: " + fileName);
             } catch (IOException e) {
+                // Log error if the screenshot could not be saved
                 System.err.println("Failed to save screenshot: " + e.getMessage());
             }
         }

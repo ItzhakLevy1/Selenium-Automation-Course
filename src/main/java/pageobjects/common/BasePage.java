@@ -169,34 +169,32 @@ public class BasePage {
     }
 
     /**
-     * Captures a screenshot manually at any point during the test.
-     * This is useful for documenting successful steps or specific UI states.
-     * @param fileName The name to give the screenshot file (without extension).
+     * Captures a manual screenshot with a unique timestamp to prevent file overwriting.
+     * @param fileName The base name for the screenshot.
      */
     public void takeManualScreenshot(String fileName) {
-        // Cast the driver instance to TakesScreenshot to access the capture functionality
+        // Cast the driver to TakesScreenshot
         TakesScreenshot ts = (TakesScreenshot) driver;
 
-        // Capture the current browser view and store it in a temporary file
+        // Capture the screenshot as a temporary file
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
 
-        // Define the destination directory relative to the project root
-        File directory = new File("./ManualScreenshots/");
+        // Create a timestamp string (Format: Year_Month_Day_Hour_Minute_Second)
+        String timeStamp = new java.text.SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new java.util.Date());
 
-        // Check if the directory exists; if not, create it to avoid FileNotFoundException
+        // Ensure the destination directory exists
+        File directory = new File("./ManualScreenshots/");
         if (!directory.exists()) {
             directory.mkdir();
         }
 
         try {
-            // Construct the full destination path and copy the screenshot file there
-            // The file is saved in .jpg format using the provided fileName
-            FileUtils.copyFile(srcFile, new File(directory + "/" + fileName + ".jpg"));
+            // Construct the final file path including the timestamp
+            String finalName = fileName + "_" + timeStamp + ".jpg";
+            FileUtils.copyFile(srcFile, new File(directory + "/" + finalName));
 
-            // Log a success message to the console for tracking
-            System.out.println("Manual screenshot saved: " + fileName);
+            System.out.println("Manual screenshot saved: " + finalName);
         } catch (IOException e) {
-            // Log an error message to the error stream if the file operation fails
             System.err.println("Failed to save manual screenshot: " + e.getMessage());
         }
     }
