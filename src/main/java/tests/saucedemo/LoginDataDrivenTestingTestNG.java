@@ -10,13 +10,14 @@ import pageobjects.saucedemo.LoginPage;
 import tests.common.BaseTest;
 import utils.Utils;
 
-public class LoginDataDrivenTestingTestNG {
+public class LoginDataDrivenTestingTestNG extends BaseTest {
 
-    private WebDriver driver;
+    // This class now uses the 'driver' inherited from BaseTest.
     private LoginPage lp; // Class-level variable
 
     @BeforeClass
     public void setup() {
+        // Assign the driver instance from the BaseTest factory method
         driver = BaseTest.initDriver();
         driver.get(Utils.readProperty("url"));
 
@@ -77,7 +78,7 @@ public class LoginDataDrivenTestingTestNG {
     public void tc03_loginFromProperties() {
 
         // Fetching the data using the keys defined in the properties file
-        String userFromProp = Utils.readProperty("username1");
+        String userFromProp = Utils.readProperty("username");
         String passFromProp = Utils.readProperty("password");
 
         // Refreshing the page before each iteration to clear old error messages and states.

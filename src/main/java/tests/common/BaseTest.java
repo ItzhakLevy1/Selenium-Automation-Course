@@ -1,44 +1,75 @@
 package tests.common;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BaseTest {
 
-    // This method sets up the driver and returns it ready for use
+    // Protected driver allows all test classes that extend BaseTest to use it directly
+    protected static WebDriver driver;
+
     public static WebDriver initDriver() {
         ChromeOptions options = new ChromeOptions();
 
-        // 1. Suppression flags
+        // Suppression flags & Automation environment settings
         options.addArguments("--incognito");
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-save-password-bubble");
         options.addArguments("--disable-features=PasswordLeakDetection");
-
-        // 2. Automation environment settings
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setExperimentalOption("useAutomationExtension", false);
 
-        // 3. Password manager preferences
+        // Password manager preferences
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
         prefs.put("profile.password_manager_enabled", false);
         options.setExperimentalOption("prefs", prefs);
 
-        WebDriver driver = new ChromeDriver(options);
+        // Assign the new driver to the class-level variable
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
         return driver;
+    }
+
+    /**
+     * This method runs automatically after EACH test method.
+     * It captures a screenshot only if the test failed.
+     */
+    @AfterMethod
+    public void failedTest(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            // Cast driver to TakesScreenshot interface
+            TakesScreenshot ts = (TakesScreenshot) driver;
+
+            // Capture the screenshot as a file
+            File srcFile = ts.getScreenshotAs(OutputType.FILE);
+
+            try {
+                // Save the screenshot with the test name in the ScreenShots folder
+                FileUtils.copyFile(srcFile, new File("./ScreenShots/" + result.getName() + ".jpg"));
+                System.out.println("Screenshot taken for failed test: " + result.getName());
+            } catch (IOException e) {
+                System.err.println("Failed to save screenshot: " + e.getMessage());
+            }
+        }
     }
 }
 
 
 /*
 
-Provided benefits :
+Provided benefits of initDriver() :
 Incognito Mode: Prevents the site from saving "cookies" between runs, which ensures that the test always starts "clean".
 
 Maximize Window: Saves you from having to write driver.manage().window().maximize() every time.
