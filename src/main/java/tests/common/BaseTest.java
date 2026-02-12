@@ -76,6 +76,38 @@ public class BaseTest {
     }
 
     /**
+     * Cleans the content of both manual and automated screenshot directories.
+     * This can be called manually whenever a fresh start is needed.
+     */
+    public void clearAllScreenshots() {
+        // List of directories to clean
+        String[] folders = {"./ScreenShots", "./ManualScreenshots"};
+
+        for (String folderPath : folders) {
+            cleanFolder(folderPath);
+        }
+    }
+
+    /**
+     * Helper method to delete all files within a specific directory.
+     * @param folderPath The path to the folder to be cleaned.
+     */
+    public void cleanFolder(String folderPath) {
+        File directory = new File(folderPath);
+        try {
+            if (directory.exists() && directory.isDirectory()) {
+                // Deletes files inside the directory without deleting the folder itself
+                FileUtils.cleanDirectory(directory);
+                System.out.println("Directory cleaned: " + folderPath);
+            } else {
+                System.out.println("Directory does not exist, skipping: " + folderPath);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to clean " + folderPath + ": " + e.getMessage());
+        }
+    }
+
+    /**
      * This method runs after all tests in the current class are finished.
      * It ensures the browser is closed properly to free up system resources.
      */
