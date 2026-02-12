@@ -1,18 +1,14 @@
 package tests.mytinytodo;
 
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.mytinytodo.TasksPage;
 import tests.common.BaseTest;
 
 
-public class DeleteTaskByFirstHoveringTestNG {
+public class DeleteTaskByFirstHoveringTestNG extends BaseTest {
 
-    // A global driver
-    WebDriver driver;
 
     // A method that runs before any other method
     @BeforeClass
@@ -28,13 +24,4 @@ public class DeleteTaskByFirstHoveringTestNG {
         tp.deleteTaskFromTaskRow("Be Great !", "Be great 3");
         Thread.sleep(2000);
     }
-
-    // A method that runs last
-    @AfterClass
-    public void teardown() {
-        if(driver != null) {
-            driver.quit();
-        }
-    }
-
 }

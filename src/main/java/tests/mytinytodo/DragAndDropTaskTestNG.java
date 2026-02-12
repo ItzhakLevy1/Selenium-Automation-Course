@@ -1,13 +1,12 @@
 package tests.mytinytodo;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.mytinytodo.TasksPage;
 import tests.common.BaseTest;
 
-public class DragAndDropTaskTestNG {
+public class DragAndDropTaskTestNG extends BaseTest {
 
     // The list to add a task to
     private final String listName = "Be Great !";
@@ -30,12 +29,5 @@ public class DragAndDropTaskTestNG {
         TasksPage tp = new TasksPage(driver);
         tp.dragAndDropTask(listName, taskName, 0);
 
-    }
-
-    @AfterClass
-    public void teardown(){
-        if(driver != null){
-            driver.quit();
-        }
     }
 }

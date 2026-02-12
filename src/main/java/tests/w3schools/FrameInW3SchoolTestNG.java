@@ -1,15 +1,11 @@
 package tests.w3schools;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.w3school.FrameInW3SchoolPage;
 import tests.common.BaseTest;
 
-public class FrameInW3SchoolTestNG {
-
-    WebDriver driver;
+public class FrameInW3SchoolTestNG extends BaseTest {
 
     @BeforeClass
     public void setup() {
@@ -51,12 +47,4 @@ public class FrameInW3SchoolTestNG {
         // Click the hamburger menu
         fp.clickHamburgerMenuButton();
     }
-
-    @AfterClass
-    public void teardown(){
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
 }

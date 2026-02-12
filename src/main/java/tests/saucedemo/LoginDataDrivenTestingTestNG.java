@@ -1,8 +1,6 @@
 package tests.saucedemo;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -92,12 +90,5 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         // Verification - since we used valid credentials, we expect to see the 'Products' title after a successful login
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("inventory.html"), "Login failed using properties file credentials!");
-    }
-
-    @AfterClass
-    public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

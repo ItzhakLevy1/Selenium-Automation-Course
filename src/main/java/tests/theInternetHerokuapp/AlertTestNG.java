@@ -1,15 +1,11 @@
 package tests.theInternetHerokuapp;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import tests.common.BaseTest;
 
-public class AlertTestNG {
-
-    private WebDriver driver;
+public class AlertTestNG extends BaseTest {
 
     @BeforeClass
     public void setup() {
@@ -35,12 +31,5 @@ public class AlertTestNG {
         System.out.println("Browser says: " + result);
 
         Thread.sleep(2000);
-    }
-
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

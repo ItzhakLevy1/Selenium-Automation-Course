@@ -1,15 +1,11 @@
 package tests.w3schools;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.w3school.SwitchToSecondWindowW3SchoolPage;
 import tests.common.BaseTest;
 
-public class SwitchToSecondWindowW3SchoolTestNG {
-
-    WebDriver driver;
+public class SwitchToSecondWindowW3SchoolTestNG extends BaseTest {
 
     @BeforeClass
     public void setup() {
@@ -29,12 +25,5 @@ public class SwitchToSecondWindowW3SchoolTestNG {
         SwitchToSecondWindowW3SchoolPage sp = new SwitchToSecondWindowW3SchoolPage(driver);
         sp.switchToWindow2();
         Thread.sleep(3000);
-    }
-
-    @AfterClass
-    public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

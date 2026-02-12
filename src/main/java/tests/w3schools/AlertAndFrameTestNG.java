@@ -1,16 +1,12 @@
 package tests.w3schools;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import tests.common.BaseTest;
 
-public class AlertAndFrameTestNG {
-
-    private WebDriver driver;
+public class AlertAndFrameTestNG extends BaseTest {
 
     @BeforeClass
     public void setup() throws InterruptedException {
@@ -38,12 +34,5 @@ public class AlertAndFrameTestNG {
 
         // 4. (Optional) Switch back to the main content if needed for next tests
         driver.switchTo().defaultContent();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

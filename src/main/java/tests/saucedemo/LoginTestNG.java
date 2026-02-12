@@ -1,18 +1,14 @@
 package tests.saucedemo;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.saucedemo.LoginPage;
 import tests.common.BaseTest;
 
-public class LoginTestNG {
-
-    WebDriver driver;
+public class LoginTestNG extends BaseTest {
 
     @BeforeClass
     public void beforeClass() throws InterruptedException {
@@ -63,12 +59,5 @@ public class LoginTestNG {
          * The 3rd argument - the text, will be displayed in the terminal in case of a miss match.
          */
         Assert.assertEquals(actual, expected, "The error message text is incorrect!");
-    }
-
-    @AfterClass
-    public void afterClass() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

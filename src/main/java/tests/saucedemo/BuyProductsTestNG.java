@@ -1,7 +1,5 @@
 package tests.saucedemo;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.saucedemo.LoginPage;
@@ -10,10 +8,7 @@ import pageobjects.saucedemo.ProductsPage;
 import pageobjects.saucedemo.YourCartPage;
 import tests.common.BaseTest;
 
-public class BuyProductsTestNG {
-
-    // 1. Declare driver but don't initialize yet
-    private WebDriver driver;
+public class BuyProductsTestNG extends BaseTest{
 
     @BeforeClass
     public void setup() {
@@ -59,13 +54,5 @@ public class BuyProductsTestNG {
         YourCartPage ycp = new YourCartPage(driver);
         ycp.checkout();
         Thread.sleep(2000);
-    }
-
-    @AfterClass
-    public void tearDown() {
-        // 3. Proper cleanup method name
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

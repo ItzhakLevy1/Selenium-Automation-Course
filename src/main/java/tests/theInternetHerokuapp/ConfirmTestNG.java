@@ -1,13 +1,10 @@
 package tests.theInternetHerokuapp;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import tests.common.BaseTest;
 
-public class ConfirmTestNG {
-
-    private WebDriver driver;
+public class ConfirmTestNG extends BaseTest {
 
     // A setup class (runs prior to all other methods)
     @BeforeClass
@@ -32,13 +29,5 @@ public class ConfirmTestNG {
         driver.switchTo().alert().dismiss();
         System.out.println("The 'Cancel' button within the alert message has been clicked!");
         Thread.sleep(3000);
-    }
-
-    // A tear down class (runs last - after all other methods in the class ran)
-    @AfterClass
-    public void teardown() {
-        if(driver != null) {
-            driver.quit();
-        }
     }
 }

@@ -1,18 +1,14 @@
 package tests.theInternetHerokuapp;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import tests.common.BaseTest;
 
-public class PromptAlertTestNG {
+public class PromptAlertTestNG extends BaseTest {
 
-    // Initialize a driver
-    WebDriver driver;
     WebElement resultMessage;
 
     // A method that runs prior to any other method in this class
@@ -53,13 +49,5 @@ public class PromptAlertTestNG {
 
         System.out.println("Assertion passed: " + actualResult);
         Thread.sleep(2000);
-    }
-
-    // A method that runs last - after all other methods in this class has already ran
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

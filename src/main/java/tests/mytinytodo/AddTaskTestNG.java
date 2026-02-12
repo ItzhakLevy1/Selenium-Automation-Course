@@ -7,9 +7,7 @@ import org.testng.annotations.Test;
 import pageobjects.mytinytodo.TasksPage;
 import tests.common.BaseTest;
 
-public class AddTaskTestNG {
-
-    WebDriver driver;
+public class AddTaskTestNG extends BaseTest {
 
     @BeforeClass
     public void setup() throws InterruptedException {
@@ -27,12 +25,4 @@ public class AddTaskTestNG {
         tp.addTask("Be Great !", "Be great 2");
         tp.addTask("Be Great !", "Be great 3");
     }
-
-    @AfterClass
-    public void teardown() throws InterruptedException {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
 }

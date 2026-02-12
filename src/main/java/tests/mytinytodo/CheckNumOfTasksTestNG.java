@@ -13,8 +13,6 @@ public class CheckNumOfTasksTestNG extends BaseTest {
 
     WebDriverWait wait;
 
-    WebDriver driver;
-
     @BeforeClass
     public void setup() throws InterruptedException{
         driver = BaseTest.initDriver();
@@ -41,11 +39,5 @@ public class CheckNumOfTasksTestNG extends BaseTest {
         System.out.println("After : " + after);
 
         Assert.assertEquals(after, before + 1, "The task count did not increment correctly!");
-    }
-    @AfterClass
-    public void teardown(){
-        if(driver != null){
-            driver.quit();
-        }
     }
 }

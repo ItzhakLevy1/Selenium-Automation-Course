@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import java.io.File;
 import java.io.IOException;
@@ -73,8 +74,19 @@ public class BaseTest {
             }
         }
     }
-}
 
+    /**
+     * This method runs after all tests in the current class are finished.
+     * It ensures the browser is closed properly to free up system resources.
+     */
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+            System.out.println("Browser closed and session ended.");
+        }
+    }
+}
 
 /*
 

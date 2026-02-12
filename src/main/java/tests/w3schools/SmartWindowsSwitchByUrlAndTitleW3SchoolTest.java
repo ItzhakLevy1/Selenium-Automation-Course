@@ -1,16 +1,13 @@
 package tests.w3schools;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.w3school.SmartWindowsSwitchByUrlAndTitleW3SchoolPage;
 import tests.common.BaseTest;
 
-public class SmartWindowsSwitchByUrlAndTitleW3SchoolTest {
+public class SmartWindowsSwitchByUrlAndTitleW3SchoolTest extends BaseTest {
 
-    private WebDriver driver;   // Defin a driver
     private SmartWindowsSwitchByUrlAndTitleW3SchoolPage sws; // Defined at class level
 
     @BeforeClass
@@ -70,12 +67,5 @@ public class SmartWindowsSwitchByUrlAndTitleW3SchoolTest {
         sws.interactWithPage3();
         Thread.sleep(2000);
 
-    }
-
-    @AfterClass
-    public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }
