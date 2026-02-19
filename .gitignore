@@ -1,9 +1,30 @@
+# Maven
 /target/
+
+# TestNG
+/test-output/
+
+# Compiled files
+*.class
+
+# Logs
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
 .settings/
 .project
 .classpath
-*.class
 
-.idea/
-*.iml
-/test-output/
+# Allure
+allure-results/
+allure-report/
+
+# OS
+.DS_Store
+Thumbs.db
