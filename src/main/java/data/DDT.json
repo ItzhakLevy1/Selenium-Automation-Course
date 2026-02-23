@@ -1,0 +1,14 @@
+[
+  {
+    "username": "emilys",
+    "password": "emilyspass"
+  },
+  {
+    "username": "willFailTest1",
+    "password": "wrongValue1"
+  },
+  {
+    "username": "willFailTest2",
+    "password": "wrongValue2"
+  }
+]
