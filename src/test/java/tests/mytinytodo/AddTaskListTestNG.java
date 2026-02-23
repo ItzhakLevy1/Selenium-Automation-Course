@@ -1,5 +1,6 @@
 package tests.mytinytodo;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.mytinytodo.TasksPage;
@@ -16,7 +17,12 @@ public class AddTaskListTestNG extends BaseTest {
         Thread.sleep(1000);
     }
 
-    @Test
+    // A TestNG annotation which will be displayed as a title on the allure report on the top of the report page
+    @Test(description = "Add a task list / tab")
+
+    // An allure annotation which will be displayed as a title on the allure report at the middle / bottom of the report page
+    @Description("An allure description - Creating and adding a new tab / title")
+
     public void addTaskList() throws InterruptedException {
         // Create a new task list
         TasksPage tp = new TasksPage(driver);
