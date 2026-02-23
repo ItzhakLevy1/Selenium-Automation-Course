@@ -2,53 +2,97 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+	<!-- Model version for Maven POM -->
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.selenium</groupId>
-	<artifactId>selenium-demo</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<!-- Basic project coordinates -->
+	<groupId>com.selenium</groupId> <!-- Unique identifier for your project group -->
+	<artifactId>selenium-demo</artifactId> <!-- Name of the project/artifact -->
+	<version>1.0-SNAPSHOT</version> <!-- Project version; SNAPSHOT means it's under development -->
 
 	<properties>
+		<!-- Java compiler version -->
 		<maven.compiler.release>21</maven.compiler.release>
+
+		<!-- AspectJ version for weaving (used for logging or AOP) -->
+		<aspectj.version>1.9.21</aspectj.version>
+
+		<!-- Allure reporting version -->
+		<allure.version>2.25.0</allure.version>
 	</properties>
 
 	<dependencies>
+		<!-- Selenium WebDriver for browser automation -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.17.0</version>
 		</dependency>
 
+		<!-- TestNG framework for writing and running tests -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>7.9.0</version>
 		</dependency>
 
+		<!-- Allure TestNG integration for generating reports -->
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>${allure.version}</version>
+		</dependency>
+
+		<!-- Apache Commons IO for easier file handling -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.15.1</version>
 		</dependency>
 
+		<!-- Apache POI for reading/writing Excel files -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>5.2.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.5</version>
 		</dependency>
 
+		<!-- Log4j API for logging -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.22.1</version>
 		</dependency>
-
 	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Maven Surefire plugin to run TestNG tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<!-- Pass AspectJ weaver as Java agent for runtime weaving -->
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+				</configuration>
+				<dependencies>
+					<!-- AspectJ weaver dependency required by the plugin -->
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
