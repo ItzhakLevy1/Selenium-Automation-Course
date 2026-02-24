@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.saucedemo.LoginPage;
 import tests.common.BaseTest;
+import utils.AllureAttachment;
 
 public class LoginTestNG extends BaseTest {
 
@@ -47,6 +48,7 @@ public class LoginTestNG extends BaseTest {
     public void tc02_loginWithMissingPassword() throws InterruptedException {
         LoginPage lp = new LoginPage(driver);
         lp.login("standard_user", "");
+        AllureAttachment.addTextAttachment("This logs any text information we want to the allure report, under 'Beheviors' > 'Test body' ");
         Thread.sleep(1000);
 
         WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
