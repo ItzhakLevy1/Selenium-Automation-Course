@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import tests.common.BaseTest;
 
@@ -11,6 +13,8 @@ public class MyFirstTestNG {
     }
 
     @Test(description = "Test the clearAllScreenshots method that clears the screen shots folder")
+    // Defines the priority of this test case in the Allure report for better risk management
+    @Severity(SeverityLevel.MINOR)
     public void test2() {
         BaseTest test = new BaseTest();
         test.clearAllScreenshots();

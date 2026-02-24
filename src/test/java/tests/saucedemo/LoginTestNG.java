@@ -1,5 +1,7 @@
 package tests.saucedemo;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -40,9 +42,11 @@ public class LoginTestNG extends BaseTest {
 
     // A method that gets the error message that appears when trying to log in without a Password
     @Test
+    // Defines the priority of this test case in the Allure report for better risk management
+    @Severity(SeverityLevel.CRITICAL)
     public void tc02_loginWithMissingPassword() throws InterruptedException {
         LoginPage lp = new LoginPage(driver);
-        lp.login("standard_user", "secret_sauce");
+        lp.login("standard_user", "");
         Thread.sleep(1000);
 
         WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
