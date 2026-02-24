@@ -22,8 +22,8 @@ public class LoginPage extends BasePage {
      * @param user The username or email to enter.
      * @param password The password to enter.
      */
-    // Marks this method as a step in Allure reports, including dynamic parameters for better traceability
-    @Step("Login with user: {user}, and password: {password}")
+    // Marks this method as a step in Allure reports, including dynamic parameters for better traceability, Replaced dynamic password placeholder with a secure label
+    @Step("Login with user: {user}, and password: [SECURE]")
     public void login(String user, String password) {
 
         // Locate the username + password fields, and use the "fillText" method which clears the value and inserts new value instead

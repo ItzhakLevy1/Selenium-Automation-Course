@@ -42,7 +42,7 @@ public class LoginTestNG extends BaseTest {
     @Test
     public void tc02_loginWithMissingPassword() throws InterruptedException {
         LoginPage lp = new LoginPage(driver);
-        lp.login("standard_user", "");
+        lp.login("standard_user", "secret_sauce");
         Thread.sleep(1000);
 
         WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
