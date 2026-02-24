@@ -1,5 +1,6 @@
 package pageobjects.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,8 @@ public class LoginPage extends BasePage {
      * @param user The username or email to enter.
      * @param password The password to enter.
      */
+    // Marks this method as a step in Allure reports, including dynamic parameters for better traceability
+    @Step("Login with user: {user}, and password: {password}")
     public void login(String user, String password) {
 
         // Locate the username + password fields, and use the "fillText" method which clears the value and inserts new value instead
