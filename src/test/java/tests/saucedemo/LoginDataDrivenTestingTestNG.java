@@ -1,6 +1,7 @@
 package tests.saucedemo;
 
 import org.testng.Assert;
+import org.testng.ITestContext; // Added for context sharing
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,9 +15,18 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
     private LoginPage lp; // Class-level variable
 
     @BeforeClass
-    public void setup() {
-        // Assign the driver instance from the BaseTest factory method
+    // This setup method runs before the test execution begins.
+    // ITestContext provides runtime information about the current TestNG execution,
+    // such as test name, included groups, parameters, and shared test attributes.
+    // It is commonly used to initialize resources (e.g., WebDriver, configuration,
+    // test data, reporting context) that should be available for all tests.
+    public void setup(ITestContext testContext) {
+        // Initialize the driver
         driver = BaseTest.initDriver();
+
+        // CRITICAL: Share the driver instance with the TestNG Context so the Listener can find it
+        testContext.setAttribute("WebDriver", driver);
+
         driver.get(Utils.readProperty("url"));
 
         // Initialize the Page Object once here instead of inside every test method.
@@ -55,7 +65,13 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         // Check that we got the right message
         String expected = "Epic sadface: Username and password do not match any user in this service";
         String actual = lp.getErrorMessage();
-        Assert.assertEquals(actual, expected);
+
+        // Forcing a failure on the first iteration to trigger the screenshot in Allure
+        if (user.equals("user1")) {
+            Assert.assertEquals(actual, "FORCED FAILURE TO TEST SCREENSHOT", "Testing Allure Attachment!");
+        } else {
+            Assert.assertEquals(actual, expected);
+        }
     }
 
     /*

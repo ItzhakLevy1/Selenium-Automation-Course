@@ -21,9 +21,14 @@
 .project
 .classpath
 
-# Allure
+# Ignore local screenshots
+ScreenShots/
+ManualScreenshots/
+
+# Ignore Allure results and reports
 allure-results/
 allure-report/
+target/
 
 # OS
 .DS_Store

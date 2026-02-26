@@ -95,19 +95,27 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
 				<configuration>
-					<!-- Pass AspectJ weaver as a Java agent to enable runtime weaving -->
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<!--
+
+					Allows attaching the screenshots of failed tests to the Allure report.
+
+					Passes the AspectJ Weaver as a JVM Java Agent when tests are executed.
+
+					The -javaagent option enables runtime bytecode weaving, which is required
+					by frameworks such as Allure (and other AOP-based tools) to intercept
+					test execution events, annotations, and lifecycle methods.
+
+					${settings.localRepository} resolves to the local Maven repository path
+					(usually ~/.m2/repository), ensuring the agent JAR is loaded dynamically
+					from the correct installed version defined by ${aspectj.version}.
+					-->
 					<argLine>
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 				</configuration>
-				<dependencies>
-					<!-- AspectJ weaver dependency required by Surefire -->
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjweaver</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

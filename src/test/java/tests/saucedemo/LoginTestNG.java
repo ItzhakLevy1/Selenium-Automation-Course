@@ -53,7 +53,8 @@ public class LoginTestNG extends BaseTest {
 
         WebElement errorMessage = driver.findElement(By.cssSelector("h3[data-test='error']"));
 
-        String expected = "Epic sadface: Password is required";
+        // Adding "!!!" makes sure the test will fail
+        String expected = "Epic sadface: Password is required!!!";
         String actual = errorMessage.getText();
 
         System.out.println("The actual message ( after entering only a Username ) is = " + actual);

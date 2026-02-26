@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="https://www.saucedemo.com login Suite" thread-count="3" parallel="classes">
+<suite name="Full Regression Suite - https://www.saucedemo.com login Suite" thread-count="3" parallel="classes">
 
-    <test name="Login test" >
+    <listeners>
+        <listener class-name="utils.ListenerClass" />
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+    </listeners>
+
+    <test name="Login Tests">
         <classes>
-            <class name="tests.saucedemo.LoginDataDrivenTestingTestNG"></class>
+            <class name="tests.saucedemo.LoginDataDrivenTestingTestNG" />
         </classes>
     </test>
 </suite>
