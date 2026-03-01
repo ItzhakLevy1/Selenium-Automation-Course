@@ -23,16 +23,19 @@ public class ListenerClass implements ITestListener {
         WebDriver driver = (WebDriver) result.getTestContext().getAttribute("WebDriver");
 
         if (driver != null) {
-            // 1. Capture screenshot as bytes for Allure
+            // Capture screenshot as bytes for Allure
             byte[] screenshotContents = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-            // 2. Attach the Screenshot to Allure
+            // Attach the Screenshot to Allure
             Allure.addAttachment("Failure Screenshot", new java.io.ByteArrayInputStream(screenshotContents));
 
-            // 3. NEW: Attach the Page Source to Allure (Calling the method from AllureAttachment)
+            // Attach the Page Source to Allure (HTML structure)
             AllureAttachment.getPageSource(driver);
 
-            // 4. Save a local copy for IntelliJ
+            // NEW: Attach the Browser Console Logs (JavaScript/Network errors)
+            AllureAttachment.attachConsoleLogs(driver);
+
+            // Save a local copy for IntelliJ
             saveScreenshotLocally(result, driver);
         }
     }
