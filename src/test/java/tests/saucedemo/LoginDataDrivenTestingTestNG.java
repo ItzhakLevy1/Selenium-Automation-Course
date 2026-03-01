@@ -1,6 +1,7 @@
 package tests.saucedemo;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -13,6 +14,7 @@ import tests.common.BaseTest;
 import utils.AllureAttachment;
 import utils.Utils;
 
+@Owner("Automation Team") // This owner will be applied to all tests within this class ( and will be shown on the allure report )
 public class LoginDataDrivenTestingTestNG extends BaseTest {
 
     // This class now uses the 'driver' inherited from BaseTest.
@@ -37,6 +39,7 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         lp = new LoginPage(driver);
     }
 
+    @Owner("Itzhak Levy") // Defines the person responsible for this specific test case, this overrides the class-level owner for this specific test
     @Test(priority = 1, description = "Test the login failed scenario with hardcoded data")
     public void tc01_loginFail() {
 
