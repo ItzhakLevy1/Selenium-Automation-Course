@@ -26,10 +26,13 @@ public class ListenerClass implements ITestListener {
             // 1. Capture screenshot as bytes for Allure
             byte[] screenshotContents = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-            // 2. ATTACH TO ALLURE (This is the missing link!)
-            Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(screenshotContents));
+            // 2. Attach the Screenshot to Allure
+            Allure.addAttachment("Failure Screenshot", new java.io.ByteArrayInputStream(screenshotContents));
 
-            // 3. Save a local copy for IntelliJ
+            // 3. NEW: Attach the Page Source to Allure (Calling the method from AllureAttachment)
+            AllureAttachment.getPageSource(driver);
+
+            // 4. Save a local copy for IntelliJ
             saveScreenshotLocally(result, driver);
         }
     }
