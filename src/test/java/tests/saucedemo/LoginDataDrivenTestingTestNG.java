@@ -26,8 +26,11 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
     // It is commonly used to initialize resources (e.g., WebDriver, configuration,
     // test data, reporting context) that should be available for all tests.
     public void setup(ITestContext testContext) {
-        // Initialize the driver
-        driver = BaseTest.initDriver();
+
+        // Ensure the driver from BaseTest is used
+        if (driver == null) {
+            driver = BaseTest.initDriver();
+        }
 
         // CRITICAL: Share the driver instance with the TestNG Context so the Listener can find it
         testContext.setAttribute("WebDriver", driver);

@@ -92,6 +92,13 @@
 			<artifactId>underscore</artifactId>
 			<version>1.58</version>
 		</dependency>
+
+		<!-- Writes environment details (OS, browser, config, etc.) into the Allure report -->
+		<dependency>
+			<groupId>com.github.automatedowl</groupId>
+			<artifactId>allure-environment-writer</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,18 +1,22 @@
 package tests.common;
 
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 public class BaseTest {
 
@@ -41,6 +45,26 @@ public class BaseTest {
         driver.manage().window().maximize();
 
         return driver;
+    }
+
+    @Parameters({"baseUrl"})
+    @BeforeSuite
+    public void setAllureEnvironment(@Optional("https://www.saucedemo.com/") String baseUrl) {
+        if (driver == null) {
+            initDriver();
+        }
+
+        // Force explicit directory if needed, but usually the default works if path is correct
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", ((RemoteWebDriver) driver).getCapabilities().getBrowserName())
+                        .put("Browser.Version", ((RemoteWebDriver) driver).getCapabilities().getBrowserVersion())
+                        .put("URL", baseUrl)
+                        .put("Environment", "Production")
+                        .build(),
+                System.getProperty("user.dir") + "/allure-results/"); // Explicitly pointing to the results folder
+
+        System.out.println("Allure environment variables set.");
     }
 
     /**
