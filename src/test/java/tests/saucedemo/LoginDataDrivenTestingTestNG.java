@@ -1,5 +1,7 @@
 package tests.saucedemo;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestContext; // Added for context sharing
 import org.testng.annotations.BeforeClass;
@@ -7,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.saucedemo.LoginPage;
 import tests.common.BaseTest;
+import utils.AllureAttachment;
 import utils.Utils;
 
 public class LoginDataDrivenTestingTestNG extends BaseTest {
@@ -106,5 +109,16 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         // Verification - since we used valid credentials, we expect to see the 'Products' title after a successful login
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("inventory.html"), "Login failed using properties file credentials!");
+    }
+
+    @Test
+    public void tc04_checkLogoScreenshot() {
+        // Find a specific element, for example the logo
+        WebElement logo = driver.findElement(By.cssSelector(".login_logo"));
+
+        // Attach only the logo's image to the Allure report
+        AllureAttachment.attachElementScreenshot(logo);
+
+        Assert.assertTrue(logo.isDisplayed());
     }
 }

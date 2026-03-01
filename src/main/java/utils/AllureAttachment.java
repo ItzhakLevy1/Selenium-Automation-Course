@@ -50,4 +50,18 @@ public class AllureAttachment {
         // Check if logs are empty using a simple check (replaces StringUtils if not available)
         return (consoleLogs == null || consoleLogs.trim().isEmpty()) ? "No Console Logs Found" : consoleLogs;
     }
+
+    /**
+     * Captures a screenshot of a specific web element.
+     * @param element: The WebElement to be photographed.
+     * @return Byte array of the element's screenshot for Allure.
+     */
+    @Attachment(value = "Element Screenshot", type = "image/png", fileExtension = ".png")
+    public static byte[] attachElementScreenshot(org.openqa.selenium.WebElement element) {
+        /*
+         * Selenium 4 allows taking screenshots directly from a WebElement instance.
+         * This returns only the visual area of that specific element.
+         */
+        return element.getScreenshotAs(org.openqa.selenium.OutputType.BYTES);
+    }
 }
