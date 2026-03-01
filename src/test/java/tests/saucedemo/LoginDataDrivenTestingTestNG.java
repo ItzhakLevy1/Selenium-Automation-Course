@@ -1,7 +1,6 @@
 package tests.saucedemo;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Owner;
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -174,5 +173,21 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         AllureAttachment.attachURL(website);
 
         Assert.assertNotNull(website);
+    }
+
+    @Link(name = "automation.co.il", url = "http://automation.co.il/") // General external link
+    @TmsLinks({
+            @TmsLink("550"), // Link to Test Case #550 in your management system ( such as: Xray, Zephyr, TestRail, etc. )
+            @TmsLink("800")  // Link to Test Case #800
+    })
+    @Issues({
+            @Issue("550"), // Link to known Bug #550 in Jira/Issue tracker
+            @Issue("800")  // Link to known Bug #800
+    })
+    @Test(description = "Verify system integration with external references")
+    @Description("This test demonstrates how to link automated scripts to business requirements and known issues.")
+    public void tc09_testExternalLinks() {
+        // Test logic goes here
+        Assert.assertTrue(true);
     }
 }
