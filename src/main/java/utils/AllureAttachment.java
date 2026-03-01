@@ -107,4 +107,18 @@ public class AllureAttachment {
          */
         return csv;
     }
+
+    /**
+     * Attaches a URL (URI) to the Allure report.
+     * @param url: The web address to be attached.
+     * @return The URL string which Allure will display as a clickable link or URI list.
+     */
+    @Attachment(value = "URL attachment", type = "text/uri-list", fileExtension = ".uri")
+    public static String attachURL(String url) {
+        /*
+         * The URL is returned as a string.
+         * Allure uses the 'text/uri-list' type to render it as a link.
+         */
+        return url;
+    }
 }

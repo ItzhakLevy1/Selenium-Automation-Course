@@ -161,4 +161,15 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         // Attach the CSV string to the report
         AllureAttachment.attachCSV(csvData);
     }
+
+    @Test(description = "Verify external link attachment")
+    @Description("Attaches a specific URL to the report to provide a direct link to the tested environment or documentation.")
+    public void tc08_testUrlAttachment() {
+        String website = "https://www.google.com/";
+
+        // Attach the URL to the Allure report
+        AllureAttachment.attachURL(website);
+
+        Assert.assertNotNull(website);
+    }
 }
