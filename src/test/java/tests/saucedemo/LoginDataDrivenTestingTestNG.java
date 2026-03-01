@@ -121,4 +121,13 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
 
         Assert.assertTrue(logo.isDisplayed());
     }
+
+    @Test
+    public void tc05_testApiResponse() {
+        // Sample raw JSON response used to simulate an API response payload
+        String rawJson = "{\"status\":\"success\",\"user\":\"admin\",\"id\":101}";
+
+        // This will show up in Allure as a nicely formatted .json file
+        AllureAttachment.attachJson(rawJson);
+    }
 }

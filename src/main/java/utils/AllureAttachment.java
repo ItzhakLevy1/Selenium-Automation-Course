@@ -1,5 +1,6 @@
 package utils;
 
+import com.github.underscore.lodash.U;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.WebDriver;
 
@@ -63,5 +64,19 @@ public class AllureAttachment {
          * This returns only the visual area of that specific element.
          */
         return element.getScreenshotAs(org.openqa.selenium.OutputType.BYTES);
+    }
+
+    /**
+     * Attaches a formatted JSON string to the Allure report.
+     * @param json: The raw JSON string to be formatted.
+     * @return A prettified JSON string using the Underscore library.
+     */
+    @Attachment(value = "JSON attachment", type = "application/json", fileExtension = ".json")
+    public static String attachJson(String json) {
+        /*
+         * Using U.jsonFormat (standard in version 1.58) to beautify the JSON.
+         * This replaces the deprecated or missing formatJson method.
+         */
+        return U.formatJson(json);
     }
 }
