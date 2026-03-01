@@ -1,5 +1,6 @@
 package tests.saucedemo;
 
+import io.qameta.allure.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -111,7 +112,8 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         Assert.assertTrue(currentUrl.contains("inventory.html"), "Login failed using properties file credentials!");
     }
 
-    @Test
+    @Test(description = "Verify logo element visual appearance")
+    @Description("Captured a specific screenshot of the login logo element to ensure it renders correctly.")
     public void tc04_checkLogoScreenshot() {
         // Find a specific element, for example the logo
         WebElement logo = driver.findElement(By.cssSelector(".login_logo"));
@@ -122,12 +124,27 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         Assert.assertTrue(logo.isDisplayed());
     }
 
-    @Test
+    @Test(description = "Validate JSON API response formatting")
+    @Description("Simulates an API call by attaching a raw JSON string and verifying its formatted output in Allure.")
     public void tc05_testApiResponse() {
         // Sample raw JSON response used to simulate an API response payload
         String rawJson = "{\"status\":\"success\",\"user\":\"admin\",\"id\":101}";
 
         // This will show up in Allure as a nicely formatted .json file
         AllureAttachment.attachJson(rawJson);
+    }
+
+    @Test(description = "Validate XML payload formatting")
+    @Description("Tests the XML attachment utility by formatting a raw XML string into a readable structure.")
+    public void tc06_testXmlAttachment() {
+        String xmlPayload = "<note>\n" +
+                                "<to>Tove</to>\n" +
+                                "<from>Jani</from>\n" +
+                                "<heading>Reminder</heading>\n" +
+                                "<body>Don't forget me this weekend!</body>\n" +
+                                "</note>";
+
+        // This will format the XML and attach it to the Allure report
+        AllureAttachment.attachXml(xmlPayload);
     }
 }

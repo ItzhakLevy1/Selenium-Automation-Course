@@ -79,4 +79,18 @@ public class AllureAttachment {
          */
         return U.formatJson(json);
     }
+
+    /**
+     * Attaches a formatted XML string to the Allure report.
+     * @param xml: The raw XML string to be formatted.
+     * @return A prettified XML string using the Underscore library.
+     */
+    @Attachment(value = "XML attachment", type = "application/xml", fileExtension = ".xml")
+    public static String attachXml(String xml) {
+        /*
+         * Using U.formatXml to beautify the XML structure.
+         * This ensures the XML is indented and readable in the report.
+         */
+        return U.formatXml(xml);
+    }
 }
