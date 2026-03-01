@@ -147,4 +147,18 @@ public class LoginDataDrivenTestingTestNG extends BaseTest {
         // This will format the XML and attach it to the Allure report
         AllureAttachment.attachXml(xmlPayload);
     }
+
+    @Test(description = "Validate CSV data attachment")
+    @Description("Demonstrates how to attach comma-separated values (CSV) to the report for data-driven testing visibility.")
+    public void tc07_testCsvAttachment() {
+        String csvData = "John,Doe,120 jefferson st.,Riverside, NJ, 08075\n" +
+                "Jack,McGinnis,220 hobo Av.,Phila, PA,09119\n" +
+                "\"John \"\"Da Man\"\"\",Repici,120 Jefferson St.,Riverside, NJ,08075\n" +
+                "Stephen,Tyler,\"7452 Terrace \"\"At the Plaza\"\" road\",SomeTown,SD, 91234\n" +
+                ",Blankman,,SomeTown, SD, 00298\n" +
+                "\"Joan \"\"the bone\"\", Anne\",Jet,\"9th, at Terrace plc\",Desert City,CO,00123";
+
+        // Attach the CSV string to the report
+        AllureAttachment.attachCSV(csvData);
+    }
 }

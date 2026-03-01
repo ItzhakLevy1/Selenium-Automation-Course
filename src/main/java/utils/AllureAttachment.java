@@ -93,4 +93,18 @@ public class AllureAttachment {
          */
         return U.formatXml(xml);
     }
+
+    /**
+     * Attaches a CSV string to the Allure report.
+     * @param csv: The raw CSV content to be attached.
+     * @return The CSV string which Allure will render as a table or text file.
+     */
+    @Attachment(value = "CSV attachment", type = "text/csv", fileExtension = ".csv")
+    public static String attachCSV(String csv) {
+        /*
+         * CSV data is returned as-is. Allure's UI will provide
+         * an appropriate viewer for comma-separated values.
+         */
+        return csv;
+    }
 }
